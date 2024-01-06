@@ -24,5 +24,8 @@
    "workbench.colorTheme": "Visual Studio Dark",
    "terminal.integrated.gpuAcceleration": "canvas",
    "editor.defaultFormatter": "HookyQR.beautify",
-   "python.analysis.autoImportCompletions": false
+   "python.analysis.autoImportCompletions": false,
+   "[javascript]": {
+      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+   }
 }
