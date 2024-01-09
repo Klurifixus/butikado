@@ -1,27 +1,28 @@
 {% extends "account/base_entrance.html" %}
 {% load allauth %}
 {% load i18n %}
+{% load static %}  <!-- Make sure to load static files -->
+
 {% block head_title %}
     {% trans "Confirm Access" %}
 {% endblock head_title %}
+
 {% block content %}
-    {% element h1 %}
-        {% trans "Confirm Access" %}
-    {% endelement %}
-    <p>{% blocktranslate %}Please reauthenticate to safeguard your account.{% endblocktranslate %}</p>
-    {% block reauthenticate_content %}{% endblock %}
-    {% if reauthentication_alternatives %}
-        {% element hr %}
-        {% endelement %}
-        {% element h2 %}
-            {% translate "Alternative options" %}
-        {% endelement %}
-        <ul>
-            {% for alt in reauthentication_alternatives %}
-                <li>
-                    <a href="{{ alt.url }}">{{ alt.description }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="allauth-form-inner-content"> <!-- Apply custom CSS class -->
+        <h1 class="my-custom-heading">{% trans "Confirm Access" %}</h1>
+        <p class="my-custom-paragraph">{% blocktranslate %}Please reauthenticate to safeguard your account.{% endblocktranslate %}</p>
+        {% block reauthenticate_content %}{% endblock %}
+        {% if reauthentication_alternatives %}
+            <hr class="my-custom-hr">
+            <h2 class="my-custom-heading">{% translate "Alternative options" %}</h2>
+            <ul class="my-custom-list">
+                {% for alt in reauthentication_alternatives %}
+                    <li class="my-custom-list-item">
+                        <a href="{{ alt.url }}" class="my-custom-link">{{ alt.description }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 {% endblock content %}
+
