@@ -1,4 +1,6 @@
 {% load i18n %}
 {% autoescape off %}
 {% blocktrans %}Account Already Exists{% endblocktrans %}
+
+{% trans "It appears that an account with your email address already exists. If you have forgotten your password, please use the password reset option to regain access to your account." %}
 {% endautoescape %}

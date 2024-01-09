@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.amazon',
+    # 'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.linkedin',
     'home',
     'products',
     'bag',
@@ -183,3 +186,28 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# # # Provider specific settings
+# SOCIALACCOUNT_PROVIDERS = {
+#     'amazon': {
+#         'APP': {
+#             'client_id': '<amazon_client_id>',
+#             'secret': '<amazon_secret>',
+#             'key': ''
+#         }
+#     },
+#     'facebook': {
+#         'APP': {
+#             'client_id': '<facebook_client_id>',
+#             'secret': '<facebook_secret>',
+#             'key': ''
+#         }
+#     },
+#     'linkedin': {
+#         'APP': {
+#             'client_id': '<linkedin_client_id>',
+#             'secret': '<linkedin_secret>',
+#             'key': ''
+#         }
+#     }
+# }
