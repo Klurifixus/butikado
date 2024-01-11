@@ -1,12 +1,14 @@
 {% extends "account/base_entrance.html" %}
 {% load i18n %}
-{% load allauth %}
+{% load static %}  <!-- Make sure to load static files -->
+
 {% block head_title %}
     {% trans "Sign Up Closed" %}
 {% endblock head_title %}
+
 {% block content %}
-    {% element h1 %}
-        {% trans "Sign Up Closed" %}
-    {% endelement %}
-    <p>{% trans "We are sorry, but the sign up is currently closed." %}</p>
+    <div class="allauth-form-inner-content"> <!-- Apply custom CSS class -->
+        <h1 class="my-custom-heading">{% trans "Sign Up Closed" %}</h1>
+        <p class="my-custom-paragraph">{% trans "We are sorry, but the sign up is currently closed." %}</p>
+    </div>
 {% endblock content %}
