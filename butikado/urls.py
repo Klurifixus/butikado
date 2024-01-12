@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from home import views as home_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +27,6 @@ urlpatterns = [
     path('bag/', include('bag.urls')),
     path('checkout/', include('checkout.urls')),
     path('profile/', include('profiles.urls')),
+    path('terms/', home_views.terms_of_usage, name='terms_of_usage'),
+    path('privacy/', home_views.data_handling_policy, name='data_handling_policy'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
