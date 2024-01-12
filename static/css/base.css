@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    background: url('/media/skatebackground2.png') no-repeat center center fixed;
+    background: url('/media/backgroundpic5.png') no-repeat center center fixed;
     background-size: cover;
     height: calc(100vh - 164px);
     color: #555;
