@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
+
 html {
     height: 100%;
 }
@@ -9,17 +11,21 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
-/* Bulma Styles */
+/* Base styles for mobile view */
 .icon {
+    height: 0.4rem;
+    width: 0.4rem;
     align-items: center;
     display: inline-flex;
     justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
 }
 
 .logo-font {
+    font-size: 1.5rem;
     text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .main-logo-link {
@@ -31,6 +37,7 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     color: white;
 }
+
 
 /* Buttons */
 .shop-now-button,
@@ -95,6 +102,7 @@ body {
 .bg-black {
     background: #000 !important;
 }
+
 
 /* Overlay Styles */
 .overlay {
@@ -202,13 +210,6 @@ input[name='q']::placeholder {
     overflow-y: auto;
 }
 
-/* Media Queries */
-@media (min-width: 1200px) {
-    .container {
-        max-width: 80%;
-    }
-}
-
 /* Allauth Form Styles */
 .allauth-form-inner-content {
     margin-top: 10%;
@@ -289,7 +290,91 @@ input[name='q']::placeholder {
     border-radius: 0;
 }
 
-/* Fixed Navbar for Desktop */
+/* Media Queries */
+@media (max-width: 575px) {
+    .logo-font {
+        font-size: 1.2rem;
+    }
+
+    .nav-link i, .nav-link p {
+        font-size: 0.7rem;
+    }
+
+    .nav-link {
+        padding: 0.25rem;
+    }
+
+    #topnav .col-12 {
+        padding-top: 2.5rem;
+        padding-bottom: 0.5rem;
+        font-size: small;
+    }
+    .header-container {
+        padding-top: 520px;
+    }
+}
+
+
+@media (min-width: 576px) {
+    .icon {
+        height: 1rem;
+        width: 1rem;
+    }
+
+    .h5-sm {
+        font-size: 0.85rem;
+    }
+
+    .nav-link i, .nav-link p {
+        font-size: 0.8rem;
+    }
+
+    .nav-link {
+        padding: 0.5rem;
+    }
+
+    #topnav .col-12 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: larger;
+    }
+
+    .header-container {
+        padding-top: 520px;
+    }
+}
+
+@media (min-width: 768px) {
+    .logo-font {
+        font-size: 2rem;
+    }
+
+    #topnav .col-12 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: larger;
+    }
+
+    .btt-button {
+        box-shadow: none;
+        border: none;
+    }
+
+    .btt-button .btt-link i {
+        font-size: 2rem;
+    }
+
+    .header-container {
+        padding-top: 30%;
+    }
+}
+
+@media (max-width: 900px) {
+    #delivery-banner .logo-font {
+        font-size: 0.9rem;
+    }
+}
+
 @media (min-width: 992px) {
     .fixed-top-desktop-only {
         position: fixed;
@@ -300,37 +385,86 @@ input[name='q']::placeholder {
     }
 
     .header-container {
-        padding-top: 30%;
+        padding-top: 10%;
     }
-}
-
-/* Adjusted Padding for Collapsed Navbar on Mobile */
-@media (max-width: 991px) {
-    .header-container {
-        padding-top: 20%;
-}
 
     body {
         height: calc(100vh - 116px);
     }
-}
-@media (max-width: 767px) {
-    .icon {
-        height: 1rem;
-        width: 1rem;
+
+    #topnav .col-12 {
+        padding-top: 1.5rem; /* More padding to prevent hiding behind the navbar */
     }
-    .header-container {
-        padding-top: 30%;
-    }
+
 }
 
-/* Reduce icon size on smaller screens (Galaxy S8 and smaller) */
-@media (max-width: 360px) {
+@media (min-width: 1200px) {
+    .container {
+        max-width: 80%;
+    }
+    .h5-sm {
+        font-size: 1rem;
+    }
+
+    .nav-link i, .nav-link p {
+        font-size: 1rem;
+    }
+
+    .nav-link {
+        padding: 0.75rem;
+    }
+}
+/* Very large devices (extra-large desktops, 1600px and up) */
+@media (min-width: 1600px) {
+    .container {
+        max-width: 85%;
+    }
+
+    /* Increase font sizes for better readability */
+    body {
+        font-size: 18px;
+    }
+
+    .logo-font {
+        font-size: 2.5rem;
+    }
+
+    .nav-link {
+        font-size: 1.2rem;
+        padding: 1rem;
+    }
+
+    .shop-now-button, .btn-black, .btn-outline-black {
+        font-size: 1.5rem;
+        padding: 15px 30px;
+    }
+
+    .rebel-text {
+        font-size: 1.5rem;
+    }
+
+    /* Adjust header container padding for larger header elements */
+    .header-container {
+        padding-top: 25%;
+    }
+
+    /* Larger icons for better visibility */
     .icon {
-        height: 0.4rem;
-        width: 0.4rem;
+        height: 2rem;
+        width: 2rem;
     }
-    #mobile-search {
-        display: none;
+
+    /* Larger back-to-top button */
+    .btt-button {
+        height: 50px;
+        width: 50px;
+        font-size: 2.5rem;
     }
+
+    /* Adjust the size of toast notifications */
+    .custom-toast {
+        font-size: 1.2rem;
+    }
+
+    /* Additional style adjustments as needed */
 }
