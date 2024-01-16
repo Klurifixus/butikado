@@ -316,6 +316,10 @@ input[name='q']::placeholder {
 
 
 @media (min-width: 576px) {
+    body {
+        width: 625px;
+    }
+
     .icon {
         height: 1rem;
         width: 1rem;
@@ -345,6 +349,10 @@ input[name='q']::placeholder {
 }
 
 @media (min-width: 768px) {
+    body {
+        width: 800px;
+    }
+
     .logo-font {
         font-size: 2rem;
     }
@@ -376,6 +384,10 @@ input[name='q']::placeholder {
 }
 
 @media (min-width: 992px) {
+    body {
+        width: 1100px;
+    }
+
     .fixed-top-desktop-only {
         position: fixed;
         top: 0;
@@ -399,6 +411,9 @@ input[name='q']::placeholder {
 }
 
 @media (min-width: 1200px) {
+    body {
+        width: 1350px;
+    }
     .container {
         max-width: 80%;
     }
@@ -416,6 +431,11 @@ input[name='q']::placeholder {
 }
 /* Very large devices (extra-large desktops, 1600px and up) */
 @media (min-width: 1600px) {
+    body {
+        width: 1625px;
+        
+    }
+
     .container {
         max-width: 85%;
     }
