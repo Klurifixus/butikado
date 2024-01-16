@@ -37,11 +37,11 @@
 
     <title>Earn's Shop {% block extra_title %}{% endblock %}</title>
 </head>
-<body style="font-family: 'Lato', sans-serif; background: url('/media/backgroundpic5.png'); background-size: cover; color: #555;">
+<body style="font-family: 'Lato', sans-serif; background: url('/media/backgroundpic5.png') no-repeat center center fixed; background-size: cover; color: #555;">
 
 <!-- Header -->
 <header class="container-fluid fixed-top">
-    <div id="topnav" class="row bg-transparent pt-lg-2 d-lg-flex">
+    <div id="topnav" class="row bg-info pt-lg-2 d-lg-flex">
         <!-- Logo Section: Visible on all devices -->
         <div class="col-12 col-md-4 my-auto py-1 text-center">
             <a href="{% url 'home' %}" class="nav-link main-logo-link">
@@ -66,10 +66,6 @@
     </div>
         <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
             <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-                <li class="list-inline-item dropdown">
-                    <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        
-                    </a>
                     <div class="dropdown-menu border-0" aria-labelledby="user-options">
                         {% if request.user.is_authenticated %}
                             {% if request.user.is_superuser %}
@@ -82,9 +78,6 @@
                             <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
                         {% endif %}
                     </div>
-                </li>
-                <li class="list-inline-item">
-                </li>
             </ul>
         </div>
     </div>
