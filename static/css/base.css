@@ -11,7 +11,7 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
-/* Base styles for mobile view */
+/* Base styles */
 .icon {
     height: 0.4rem;
     width: 0.4rem;
@@ -26,6 +26,8 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-shadow: 2px 2px 4px rgba(255, 136, 0, 0.7);
+    padding: 0.5rem;
 }
 
 .main-logo-link {
@@ -33,11 +35,22 @@ body {
 }
 
 .rebel-text {
+    padding-top: 220px;
+    font-size: 2rem;
     font-family: 'Permanent Marker', cursive;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px #bd2130;
     color: white;
+    display: inline-block;
 }
 
+.navbar-nav .nav-link {
+    transition: color 0.2s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff; /* Adjust color to match your theme */
+    text-decoration: underline;
+}
 
 /* Buttons */
 .shop-now-button,
@@ -56,9 +69,11 @@ body {
     border-radius: 25px;
     padding: 12px 24px;
     font-size: 1.2rem;
+    text-shadow: 2px 2px 4px #bd2130;
     transition: background-color 0.3s, transform 0.3s;
     text-decoration: none;
     font-family: 'Permanent Marker', cursive;
+    animation: pulse 2.5s infinite;
 
 }
 
@@ -289,11 +304,31 @@ input[name='q']::placeholder {
     border-color: #dc3545;
     border-radius: 0;
 }
+/* EFFECT ANIMATIONS */
+@keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
 
 /* Media Queries */
 @media (max-width: 575px) {
+    .pb-1, .py-1 {
+        padding-bottom: 0rem !important;
+    }
+
     .logo-font {
-        font-size: 1.2rem;
+        font-size: 2rem;
     }
 
     .nav-link i, .nav-link p {
@@ -305,12 +340,12 @@ input[name='q']::placeholder {
     }
 
     #topnav .col-12 {
-        padding-top: 2.5rem;
+        padding-top: 0.5rem;
         padding-bottom: 0.5rem;
         font-size: small;
     }
     .header-container {
-        padding-top: 520px;
+        padding-top: 220px;
     }
 }
 
@@ -335,7 +370,7 @@ input[name='q']::placeholder {
     }
 
     #topnav .col-12 {
-        padding-top: 1rem;
+        padding-top: 0.8rem;
         padding-bottom: 1rem;
         font-size: larger;
     }
@@ -346,6 +381,10 @@ input[name='q']::placeholder {
 }
 
 @media (min-width: 768px) {
+
+    #delivery-banner{
+        font-size: 1.2rem;
+    }
  
     .logo-font {
         font-size: 2rem;
@@ -369,42 +408,54 @@ input[name='q']::placeholder {
     .header-container {
         padding-top: 30%;
     }
+
 }
 
 @media (max-width: 900px) {
     #delivery-banner .logo-font {
-        font-size: 0.9rem;
+        font-size: 1.5rem;
     }
 }
-@media (min-width: 992px) and (max-width: 1334px) {
-    .navbar-nav .nav-item {
-      padding-right: 0.5rem; /* Reduce padding */
-      padding-left: 0.5rem; /* Reduce padding */
+@media (min-width: 901px) {
+    @keyframes marquee {
+        from {
+            transform: translateX(150%);
+        }
+        to {
+            transform: translateX(-160%);
+        }
     }
-  
-    .navbar-nav .nav
-    -link {
-        font-size: 0.95rem; /* Slightly reduce font size */
-    }
-  
-    .navbar-nav .dropdown-menu {
-        position: static; /* Prevent dropdowns from positioning out of viewport */
-    }
-    /* Adjust dropdown menu alignment if necessary */
-    .navbar-nav .nav-item .dropdown-menu {
-        transform: translateX(-50%);
-        left: 50%;
-    }
-    
-    /* Ensure last item's dropdown aligns within the screen */
-    .navbar-nav .nav-item:last-child .dropdown-menu {
-        transform: translateX(-100%);
-        right: 0;
-        left: auto;
+
+    .marquee h4 {
+        display: inline-block;
+        padding-left: 0%; /* No padding needed since it starts off-screen */
+        animation: marquee 10s linear infinite;
     }
 }
 
+.marquee {
+    overflow: hidden;
+    position: relative;
+}
+
 @media (min-width: 992px) {
+    .nav-item .dropdown-menu a {
+        display: block;
+        padding: 10px 15px;
+        margin: 5px 0;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        text-align: center;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    
+    .nav-item .dropdown-menu a:hover {
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+    }
+    
     .fixed-top-desktop-only {
         position: fixed;
         top: 0;
@@ -422,7 +473,7 @@ input[name='q']::placeholder {
     }
 
     #topnav .col-12 {
-        padding-top: 1.5rem; /* More padding to prevent hiding behind the navbar */
+        padding-top: 1.5rem;
     }
 
 }
@@ -432,11 +483,11 @@ input[name='q']::placeholder {
         max-width: 80%;
     }
     .h5-sm {
-        font-size: 1rem;
+        font-size: 2rem;
     }
 
     .nav-link i, .nav-link p {
-        font-size: 1rem;
+        font-size: 2rem;
     }
 
     .nav-link {
@@ -449,7 +500,7 @@ input[name='q']::placeholder {
         max-width: 85%;
     }
 
-    /* Increase font sizes for better readability */
+  
     body {
         font-size: 18px;
     }
@@ -459,41 +510,39 @@ input[name='q']::placeholder {
     }
 
     .nav-link {
-        font-size: 1.2rem;
         padding: 1rem;
     }
 
     .shop-now-button, .btn-outline-black {
-        font-size: 1.5rem;
+        font-size: 3.5rem;
         padding: 15px 30px;
     }
 
     .rebel-text {
-        font-size: 1.5rem;
+        font-size: 3.5rem;
     }
 
-    /* Adjust header container padding for larger header elements */
     .header-container {
         padding-top: 25%;
     }
 
-    /* Larger icons for better visibility */
+
     .icon {
         height: 2rem;
         width: 2rem;
     }
 
-    /* Larger back-to-top button */
+
     .btt-button {
         height: 50px;
         width: 50px;
         font-size: 2.5rem;
     }
 
-    /* Adjust the size of toast notifications */
+
     .custom-toast {
         font-size: 1.2rem;
     }
 
-    /* Additional style adjustments as needed */
+
 }

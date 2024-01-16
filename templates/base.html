@@ -43,7 +43,7 @@
 <header class="container-fluid fixed-top">
     <div id="topnav" class="row bg-info pt-lg-2 d-lg-flex">
         <!-- Logo Section: Visible on all devices -->
-        <div class="col-12 col-md-4 my-auto py-1 text-center">
+        <div class="col-12 col-md-4 my-auto text-center">
             <a href="{% url 'home' %}" class="nav-link main-logo-link">
                 <h2 class="logo-font text-black my-0" style="font-family: 'Permanent Marker', cursive;"><strong>Earn's Shop</strong></h2>
             </a>
@@ -64,21 +64,19 @@
             </form>
         </div>
     </div>
-        <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-            <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-                    <div class="dropdown-menu border-0" aria-labelledby="user-options">
-                        {% if request.user.is_authenticated %}
-                            {% if request.user.is_superuser %}
-                                <a href="{% url 'add_product' %}" class="dropdown-item">Product Management</a>
-                            {% endif %}
-                            <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
-                            <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
-                        {% else %}
-                            <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-                            <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
-                        {% endif %}
-                    </div>
-            </ul>
+        <div class="col-12 col-lg-4 my-auto py-lg-0">
+            <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'add_product' %}" class="dropdown-item">Product Management</a>
+                    {% endif %}
+                    <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
+                    <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                {% else %}
+                    <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                    <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                {% endif %}
+            </div>
         </div>
     </div>
     <div class="row bg-white">
@@ -92,7 +90,9 @@
     </div>
     <div id="delivery-banner" class="row text-center">
         <div class="col bg-black text-white">
-            <h4 class="logo-font my-1 h5-sm">FREE delivery on orders over ${{ free_delivery_threshold }}!</h4>
+            <div class="marquee">
+                <h4 class="logo-font my-1 h5-sm">FREE delivery on orders over ${{ free_delivery_threshold }}!&nbsp;</h4>
+            </div>
         </div>
     </div>
 </header>
