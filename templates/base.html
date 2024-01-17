@@ -91,7 +91,7 @@
     <div id="delivery-banner" class="row text-center">
         <div class="col bg-black text-white">
             <div class="marquee">
-                <h4 class="logo-font my-1 h5-sm">FREE delivery on orders over ${{ free_delivery_threshold }}!&nbsp;</h4>
+                <h4 class="deli-font my-1 h5-sm">FREE DELIVERY ON ORDERS OVER ${{ free_delivery_threshold }}!&nbsp;</h4>
             </div>
         </div>
     </div>
@@ -121,10 +121,18 @@
 {% block content %}
 {% endblock %}
 
+<!-- Footer -->
+<footer class="footer fixed-bottom bg-black text-white">
+    <div class="container text-center py-2">
+        <span>&copy; {{ current_year }} Earn's Shop. All rights reserved.</span>
+    </div>
+</footer>
+
 {% block postloadjs %}
 <script type="text/javascript">
     $('.toast').toast('show');
 </script>
+
 {% endblock %}
 
 </body>

@@ -42,9 +42,17 @@ body {
     color: white;
     display: inline-block;
 }
+.deli-font{
+    font-family: 'Permanent Marker', cursive;
+    text-shadow: 2px 2px 4px #bd2130;
+    color: white;
+    display: inline-block;
+}
 
 .navbar-nav .nav-link {
     transition: color 0.2s ease-in-out;
+    font-family: 'Permanent Marker';
+    padding:10px;
 }
 
 .navbar-nav .nav-link:hover {
@@ -349,7 +357,6 @@ input[name='q']::placeholder {
     }
 }
 
-
 @media (min-width: 576px) {
    
     .icon {
@@ -376,7 +383,11 @@ input[name='q']::placeholder {
     }
 
     .header-container {
-        padding-top: 520px;
+        padding-top: 250px;
+    }
+
+    .rebel-text {
+        padding-top: 10px;
     }
 }
 
@@ -412,7 +423,7 @@ input[name='q']::placeholder {
 }
 
 @media (max-width: 900px) {
-    #delivery-banner .logo-font {
+    .logo-font {
         font-size: 1.5rem;
     }
 }
@@ -465,7 +476,7 @@ input[name='q']::placeholder {
     }
 
     .header-container {
-        padding-top: 10%;
+        padding-top: 17%;
     }
 
     body {
@@ -523,7 +534,7 @@ input[name='q']::placeholder {
     }
 
     .header-container {
-        padding-top: 25%;
+        padding-top: 15%;
     }
 
 
