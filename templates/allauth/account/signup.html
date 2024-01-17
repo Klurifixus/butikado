@@ -7,35 +7,41 @@
 {% endblock head_title %}
 
 {% block content %}
-    <div class="allauth-form-inner-content">
-        <h1 class="my-custom-heading">{% trans "Sign Up" %}</h1>
-        <p class="my-custom-paragraph">
-            {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}" class="my-custom-link">sign in</a>.{% endblocktrans %}
-        </p>
-        {% url 'account_signup' as action_url %}
-        {% element form form=form method="post" action=action_url tags="entrance,signup" %}
-            {% slot body %}
-                {% csrf_token %}
-                {% element fields form=form unlabeled=True %}
+<div class="container pt-5 mt-5">
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            <div class="allauth-form-inner-content">
+                <h1 class="my-custom-heading">{% trans "Sign Up" %}</h1>
+                <p class="my-custom-paragraph">
+                    {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}" class="my-custom-link">sign in</a>.{% endblocktrans %}
+                </p>
+                {% url 'account_signup' as action_url %}
+                {% element form form=form method="post" action=action_url tags="entrance,signup" %}
+                    {% slot body %}
+                        {% csrf_token %}
+                        {% element fields form=form unlabeled=True %}
+                        {% endelement %}
+                        {% if redirect_field_value %}
+                            <input type="hidden"
+                                   name="{{ redirect_field_name }}"
+                                   value="{{ redirect_field_value }}" />
+                        {% endif %}
+                        <!-- Terms and Conditions Checkbox -->
+                            <div style="color: #000; /* Ensure text color is visible */">
+                                <input type="checkbox" name="terms_and_conditions" id="terms_and_conditions" required style="display: inline-block; /* Ensure checkbox is not hidden */">
+                                <label for="terms_and_conditions" style="display: inline-block; /* Ensure label is not hidden */">
+                                    I have read and agree to the <a href="{% url 'terms_of_usage' %}" target="_blank" style="color: #000; /* Ensure link color is visible */">Terms of Usage</a> and 
+                                    <a href="{% url 'data_handling_policy' %}" target="_blank" style="color: #000; /* Ensure link color is visible */">Data Handling Policy</a>.
+                                </label>
+                            </div>
+                    {% endslot %}
+                    {% slot actions %}
+                        <button type="submit" class="my-custom-button">{% trans "Sign Up" %}</button>
+                    {% endslot %}
                 {% endelement %}
-                {% if redirect_field_value %}
-                    <input type="hidden"
-                           name="{{ redirect_field_name }}"
-                           value="{{ redirect_field_value }}" />
-                {% endif %}
-                <!-- Terms and Conditions Checkbox -->
-                    <div style="color: #000; /* Ensure text color is visible */">
-                        <input type="checkbox" name="terms_and_conditions" id="terms_and_conditions" required style="display: inline-block; /* Ensure checkbox is not hidden */">
-                        <label for="terms_and_conditions" style="display: inline-block; /* Ensure label is not hidden */">
-                            I have read and agree to the <a href="{% url 'terms_of_usage' %}" target="_blank" style="color: #000; /* Ensure link color is visible */">Terms of Usage</a> and 
-                            <a href="{% url 'data_handling_policy' %}" target="_blank" style="color: #000; /* Ensure link color is visible */">Data Handling Policy</a>.
-                        </label>
-                    </div>
-            {% endslot %}
-            {% slot actions %}
-                <button type="submit" class="my-custom-button">{% trans "Sign Up" %}</button>
-            {% endslot %}
-        {% endelement %}
-        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+                {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+            </div>
+        </div>
     </div>
+</div>
 {% endblock content %}
