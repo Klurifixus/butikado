@@ -197,7 +197,7 @@ input[name='q']::placeholder {
     right: 15px;
     z-index: 99999999999;
     /* Add the animation */
-    animation: showMessage 4s ease-in-out forwards; /* 4s to include the time for fading out */
+    animation: showMessage 1.5s ease-in-out forwards; /* 4s to include the time for fading out */
 }
 
 /* Define the keyframes for the showMessage animation */
