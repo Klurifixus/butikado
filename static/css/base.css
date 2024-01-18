@@ -21,6 +21,7 @@ body {
 }
 
 .logo-font {
+    font-family: 'Permanent Marker';
     font-size: 1.5rem;
     text-transform: uppercase;
     white-space: nowrap;
@@ -115,7 +116,6 @@ body {
 .btn-outline-black {
     background: white;
     color: black !important;
-    border: 1px solid black;
 }
 
 .shop-now-button:hover{
@@ -636,7 +636,7 @@ input[name='q']::placeholder {
         padding: 1rem;
     }
 
-    .shop-now-button, .btn-outline-black {
+    .shop-now-button {
         font-size: 3.5rem;
         padding: 15px 30px;
     }
