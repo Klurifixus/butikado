@@ -11,6 +11,17 @@ from bag.contexts import bag_contents
 import stripe
 import json
 
+# Helper function to calculate the discount
+def calculate_discount(order_total, is_eligible_for_discount):
+    """
+    Calculate the discount amount if the customer is eligible for a discount.
+    A 10% discount is applied if the order total is over $250 or if the customer
+    has previously made five purchases of $50 or more.
+    """
+    if order_total > 250 or is_eligible_for_discount:
+        return order_total * 0.10
+    else:
+        return 0
 
 @require_POST
 def cache_checkout_data(request):
@@ -54,13 +65,14 @@ def checkout(request):
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
 
-             # LOYALTY DISCOUNT CHECK
+            # LOYALTY DISCOUNT CHECK
             discount_applied = False
+            discount = 0  # Initialize discount
             if request.user.is_authenticated:
                 profile = UserProfile.objects.get(user=request.user)
                 if profile.is_eligible_for_discount:
-                    discount_amount = calculate_discount(order.total)
-                    order.total -= discount_amount
+                    discount = calculate_discount(order.total)
+                    order.total -= discount
                     discount_applied = True
                     profile.loyalty_purchase_count = 0
                     profile.is_eligible_for_discount = False
@@ -96,7 +108,7 @@ def checkout(request):
                     order.delete()
                     return redirect(reverse('view_bag'))
 
-           # LOYALTY PURCHASE COUNT UPDATE
+            # LOYALTY PURCHASE COUNT UPDATE
             if request.user.is_authenticated and not discount_applied:
                 profile = UserProfile.objects.get(user=request.user)
                 profile.loyalty_purchase_count += 1
@@ -117,6 +129,7 @@ def checkout(request):
 
         current_bag = bag_contents(request)
         total = current_bag['grand_total']
+        discount = 0  # Initialize discount
         stripe_total = round(total * 100)
         stripe.api_key = stripe_secret_key
         intent = stripe.PaymentIntent.create(
@@ -198,10 +211,3 @@ def checkout_success(request, order_number):
 
     return render(request, template, context)
 
-def calculate_discount(order_total):
-    """
-    Calculate the discount amount.
-    This is a placeholder function; implement your discount logic here.
-    """
-    # Example: 10% discount
-    return order_total * 0.10
