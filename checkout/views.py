@@ -2,15 +2,12 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpR
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
-
 from .forms import OrderForm
 from .models import Order, OrderLineItem
-
 from products.models import Product
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
 from bag.contexts import bag_contents
-
 import stripe
 import json
 
@@ -56,8 +53,22 @@ def checkout(request):
             order = order_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
+
+             # LOYALTY DISCOUNT CHECK
+            discount_applied = False
+            if request.user.is_authenticated:
+                profile = UserProfile.objects.get(user=request.user)
+                if profile.is_eligible_for_discount:
+                    discount_amount = calculate_discount(order.total)
+                    order.total -= discount_amount
+                    discount_applied = True
+                    profile.loyalty_purchase_count = 0
+                    profile.is_eligible_for_discount = False
+                    profile.save()
+
             order.original_bag = json.dumps(bag)
             order.save()
+
             for item_id, item_data in bag.items():
                 try:
                     product = Product.objects.get(id=item_id)
@@ -85,7 +96,14 @@ def checkout(request):
                     order.delete()
                     return redirect(reverse('view_bag'))
 
-            # Save the info to the user's profile if all is well
+           # LOYALTY PURCHASE COUNT UPDATE
+            if request.user.is_authenticated and not discount_applied:
+                profile = UserProfile.objects.get(user=request.user)
+                profile.loyalty_purchase_count += 1
+                if profile.loyalty_purchase_count >= 5:  # Threshold for discount
+                    profile.is_eligible_for_discount = True
+                profile.save()
+
             request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
@@ -149,11 +167,9 @@ def checkout_success(request, order_number):
 
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
-        # Attach the user's profile to the order
         order.user_profile = profile
         order.save()
 
-        # Save the user's info
         if save_info:
             profile_data = {
                 'default_phone_number': order.phone_number,
@@ -181,3 +197,11 @@ def checkout_success(request, order_number):
     }
 
     return render(request, template, context)
+
+def calculate_discount(order_total):
+    """
+    Calculate the discount amount.
+    This is a placeholder function; implement your discount logic here.
+    """
+    # Example: 10% discount
+    return order_total * 0.10

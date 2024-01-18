@@ -91,7 +91,16 @@
     <div id="delivery-banner" class="row text-center">
         <div class="col bg-black text-white">
             <div class="marquee">
-                <h4 class="deli-font my-1 h5-sm">FREE DELIVERY ON ORDERS OVER ${{ free_delivery_threshold }}!&nbsp;</h4>
+                <h4 class="deli-font my-1 h5-sm">
+                    FREE DELIVERY ON ORDERS OVER ${{ free_delivery_threshold }}!&nbsp;
+                    {% if user.is_authenticated %}
+                        {% if is_eligible_for_discount %}
+                            Congratulations! You have a discount on your next order!
+                        {% else %}
+                            {{ purchases_left_for_discount }} purchases left for a discount!
+                        {% endif %}
+                    {% endif %}
+                </h4>
             </div>
         </div>
     </div>
