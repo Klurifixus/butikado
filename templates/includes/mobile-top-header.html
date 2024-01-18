@@ -1,4 +1,4 @@
-<li class="list-inline-item">
+<li class="list-inline-item dropdown d-block d-lg-none">
     <a class="text-black nav-link p-2" href="#" id="mobile-search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <div class="text-center">
             <i class="fas fa-search"></i>
@@ -20,7 +20,7 @@
         </form>
     </div>
 </li>
-<li class="list-inline-item dropdown">
+<li class="list-inline-item dropdown d-block d-lg-none">
     <a class="text-black nav-link p-2" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <div class="text-center">
             <i class="fas fa-crown"></i>
@@ -40,7 +40,7 @@
         {% endif %}
     </div>
 </li>
-<li class="list-inline-item">
+<li class="list-inline-item dropdown d-block d-lg-none">
     <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-black{% endif %} nav-link p-2" href="{% url 'view_bag' %}">
         <div class="text-center">
             <i class="fas fa-shopping-bag"></i>

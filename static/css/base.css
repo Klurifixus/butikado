@@ -83,6 +83,12 @@ body {
     text-decoration: underline;
 }
 
+.marquee h4 {
+    display: inline-block;
+    padding-left: 0%;
+    animation: marquee 10s linear infinite;
+}
+
 /* Buttons */
 .shop-now-button,
 .btn-black,
@@ -563,6 +569,18 @@ input[name='q']::placeholder {
         color: white;
         cursor: pointer;
     }
+
+    .navbar-nav {
+        display: flex !important;
+        justify-content: space-evenly !important;
+        align-items: center !important;
+      }
+      
+      .navbar-nav li {
+        flex: 1 !important;
+        text-align: center !important;
+        
+      }
     
     .fixed-top-desktop-only {
         position: fixed;
