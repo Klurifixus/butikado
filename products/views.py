@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
+from .forms import ProductForm, SizeFormSet
 
 from .models import Product, Category
 from .forms import ProductForm
@@ -60,14 +61,12 @@ def all_products(request):
 
 
 def product_detail(request, product_id):
-    """ A view to show individual product details """
-
     product = get_object_or_404(Product, pk=product_id)
-
+    sizes = product.sizes.filter(quantity__gt=0)  # Get sizes with available stock
     context = {
         'product': product,
+        'sizes': sizes,
     }
-
     return render(request, 'products/product_detail.html', context)
 
 
@@ -82,12 +81,16 @@ def add_product(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             product = form.save()
+            size_formset = SizeFormSet(request.POST, instance=product)
+            if size_formset.is_valid():
+                size_formset.save()
             messages.success(request, 'Successfully added product!')
             return redirect(reverse('product_detail', args=[product.id]))
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
         form = ProductForm()
+        size_formset = SizeFormSet()
         
     template = 'products/add_product.html'
     context = {
@@ -100,14 +103,15 @@ def add_product(request):
 @login_required
 def edit_product(request, product_id):
     """ Edit a product in the store """
+    product = get_object_or_404(Product, pk=product_id)
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
-
-    product = get_object_or_404(Product, pk=product_id)
+    
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)
-        if form.is_valid():
+        size_formset = SizeFormSet(request.POST, instance=product)
+        if form.is_valid() and size_formset.is_valid():
             form.save()
             messages.success(request, 'Successfully updated product!')
             return redirect(reverse('product_detail', args=[product.id]))
@@ -115,11 +119,13 @@ def edit_product(request, product_id):
             messages.error(request, 'Failed to update product. Please ensure the form is valid.')
     else:
         form = ProductForm(instance=product)
+        size_formset = SizeFormSet(instance=product)
         messages.info(request, f'You are editing {product.name}')
 
     template = 'products/edit_product.html'
     context = {
         'form': form,
+        'size_formset': size_formset,
         'product': product,
     }
 

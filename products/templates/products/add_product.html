@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block page_header %}
     <div class="container header-container">
@@ -32,6 +33,19 @@
                             {{ field }}
                         {% endif %}
                     {% endfor %}
+
+                    <!-- Render the SizeFormSet -->
+                    <div class="sizes-formset">
+                        {{ form.size_formset.management_form }}  <!-- Include the management form -->
+                        {% for size_form in form.size_formset %}
+                            <div class="size-form">
+                                {% for field in size_form %}
+                                    {{ field.label_tag }} {{ field }}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
                     <div class="text-right">
                         <a class="btn btn-outline-black rounded-0" href="{% url 'products' %}">Cancel</a>
                         <button class="btn btn-black rounded-0" type="submit">Add Product</button>

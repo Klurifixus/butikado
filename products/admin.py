@@ -1,7 +1,11 @@
 from django.contrib import admin
-from .models import Product, Category
+from .models import Product, Category, Size
 
 # Register your models here.
+
+class SizeInline(admin.TabularInline):
+    model = Size
+    extra = 1  # Number of empty forms to display
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
@@ -13,6 +17,7 @@ class ProductAdmin(admin.ModelAdmin):
         'image',
     )
 
+    inlines = [SizeInline]
     ordering = ('sku',)
 
 class CategoryAdmin(admin.ModelAdmin):
