@@ -67,12 +67,11 @@ def checkout(request):
 
             # LOYALTY DISCOUNT CHECK
             discount_applied = False
-            discount = 0  # Initialize discount
             if request.user.is_authenticated:
                 profile = UserProfile.objects.get(user=request.user)
+                discount = calculate_discount(order.order_total, profile.is_eligible_for_discount)
                 if profile.is_eligible_for_discount:
-                    discount = calculate_discount(order.total)
-                    order.total -= discount
+                    order.order_total -= discount
                     discount_applied = True
                     profile.loyalty_purchase_count = 0
                     profile.is_eligible_for_discount = False
