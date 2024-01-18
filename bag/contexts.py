@@ -9,6 +9,7 @@ def bag_contents(request):
     total = 0
     product_count = 0
     bag = request.session.get('bag', {})
+    discount = 0
 
     for item_id, item_data in bag.items():
         if isinstance(item_data, int):
@@ -39,6 +40,13 @@ def bag_contents(request):
         delivery = 0
         free_delivery_delta = 0
     
+    # Check for discount eligibility
+    if request.user.is_authenticated:
+        profile = request.user.userprofile
+        if total > Decimal(250) or profile.is_eligible_for_discount:
+            discount = total * Decimal(0.10)  # 10% discount
+            total -= discount
+
     grand_total = delivery + total
     
     context = {
@@ -49,6 +57,7 @@ def bag_contents(request):
         'free_delivery_delta': free_delivery_delta,
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
         'grand_total': grand_total,
+        'discount': discount,
     }
 
     return context

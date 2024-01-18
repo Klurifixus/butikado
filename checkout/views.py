@@ -72,9 +72,15 @@ def checkout(request):
                 discount = calculate_discount(order.order_total, profile.is_eligible_for_discount)
                 if profile.is_eligible_for_discount:
                     order.order_total -= discount
+                    order.save()
                     discount_applied = True
                     profile.loyalty_purchase_count = 0
                     profile.is_eligible_for_discount = False
+                    profile.save()
+                elif not discount_applied:
+                    profile.loyalty_purchase_count += 1
+                    if profile.loyalty_purchase_count >= 5:
+                        profile.is_eligible_for_discount = True
                     profile.save()
 
             order.original_bag = json.dumps(bag)

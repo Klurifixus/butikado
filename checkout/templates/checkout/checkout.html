@@ -30,6 +30,9 @@
                 {% if discount_applied %}
                     <p class="text-success">Discount Applied: -${{ discount_amount }}</p>
                 {% endif %}
+                {% comment %} {% if discount > 0 %}
+                    <p class="text-success">Discount Applied: -${{ discount }}</p>
+                {% endif %} {% endcomment %}
                 <p class="text-muted">Order Summary ({{ product_count }})</p>
                 <div class="row">
                     <div class="col-7 offset-2">
@@ -65,14 +68,16 @@
                     <div class="col-7 offset-2">
                         <p class="my-0">Order Total:</p>
                         {% if discount > 0 %}
-                            <p class="my-0">Discount: ${{ discount | floatformat:2 }}</p>
+                            <p class="my-0">Discount: -${{ discount | floatformat:2 }}</p>
                         {% endif %}
                         <p class="my-0">Delivery:</p>
                         <p class="my-0">Grand Total:</p>
                     </div>
                     <div class="col-3">
                         <p class="my-0">${{ total | floatformat:2 }}</p>
-                        <p class="my-0">${{ discount | floatformat:2 }}</p>
+                        {% if discount > 0 %}
+                            <p class="my-0">${{ discount | floatformat:2 }}</p>
+                        {% endif %}
                         <p class="my-0">${{ delivery | floatformat:2 }}</p>
                         <p class="my-0"><strong>${{ grand_total | floatformat:2 }}</strong></p>
                     </div>     
