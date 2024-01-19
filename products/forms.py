@@ -31,5 +31,11 @@ class ProductForm(forms.ModelForm):
 
         if self.instance and self.instance.pk:
             self.size_formset = SizeFormSet(instance=self.instance)
+
+            for size_form in self.size_formset:
+                for field_name, field in size_form.fields.items():
+                    if field_name in ["id", "DELETE", "product"]:
+                        field.widget.attrs['class'] = 'd-none'
         else:
             self.size_formset = SizeFormSet()
+            
