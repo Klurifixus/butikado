@@ -37,7 +37,7 @@
 
     <title>Earn's Shop {% block extra_title %}{% endblock %}</title>
 </head>
-<body style="font-family: 'Lato', sans-serif; background: url('/media/backgroundpic5.png') no-repeat center center fixed; background-size: cover; color: #555;">
+<body style="font-family: 'Permanent marker'; background: url('/media/backgroundpic5.png') no-repeat center center fixed; background-size: cover; color: #555;">
 
 <!-- Header -->
 <header class="container-fluid fixed-top">
@@ -66,10 +66,15 @@
         <div class="col-12 col-md-4 my-auto py-lg-0 d-none d-lg-block">
             <ul class="list-inline list-unstyled text-center text-lg-right my-0">
                 <li class="list-inline-item dropdown">
-                    <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="text-white nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="text-center">
-                            <div><i class="fas fa-crown fa-lg"></i></div>
-                            <p class="my-0">My Account</p>
+                            {% if request.user.is_authenticated %}
+                                <div><i class="fas fa-crown fa-lg logged-in-icon"></i></div>
+                                <p class="my-0 logged-in-text">My Account</p> <!-- Add class 'logged-in-text' -->
+                            {% else %}
+                                <div><i class="fas fa-user-circle fa-lg logged-out-icon"></i></div>
+                                <p class="my-0">Login</p>
+                            {% endif %}
                         </div>
                     </a>
                     <div class="dropdown-menu border-0" aria-labelledby="user-options">
@@ -87,8 +92,8 @@
                 </li>
                 <li class="list-inline-item">
                     <a class="{% if grand_total %}{% endif %} nav-link" href="{% url 'view_bag' %}">
-                        <div class="text-center text-black">
-                            <div><i class="fas fa-shopping-bag fa-lg text-black"></i></div>
+                        <div class="text-center text-white">
+                            <div><i class="fas fa-shopping-bag fa-lg text-white"></i></div>
                             <p class="my-0">
                                 {% if grand_total %}
                                     ${{ grand_total|floatformat:2 }}
@@ -116,13 +121,6 @@
             <div class="marquee">
                 <h4 class="deli-font my-1 h5-sm">
                     FREE DELIVERY ON ORDERS OVER ${{ free_delivery_threshold }}!&nbsp;
-                    {% if user.is_authenticated %}
-                        {% if is_eligible_for_discount %}
-                            Congratulations! You have a discount on your next order!
-                        {% else %}
-                            {{ purchases_left_for_discount }} purchases left for a discount!
-                        {% endif %}
-                    {% endif %}
                 </h4>
             </div>
         </div>
@@ -155,10 +153,21 @@
 
 <!-- Footer -->
 <footer class="footer fixed-bottom bg-black text-white">
-    <div class="container text-center py-2">
-        <span>&copy; {{ current_year }} Earn's Shop. All rights reserved.</span>
+    <div id="delivery-banner" class="row text-center">
+        <div class="col bg-black text-white">
+            <h4 class="deli-font my-1 h5-sm">
+                {% if user.is_authenticated %}
+                    {% if is_eligible_for_discount %}
+                        Congratulations! You have a discount on your next order!
+                    {% else %}
+                        {{ purchases_left_for_discount }} purchases left for a discount!
+                    {% endif %}
+                {% endif %}
+            </h4>
+        </div>
     </div>
 </footer>
+
 
 {% block postloadjs %}
 <script type="text/javascript">

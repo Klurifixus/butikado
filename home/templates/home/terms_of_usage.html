@@ -40,6 +40,16 @@
     
         <p>By continuing to use the site after such amendments are made, you agree to be bound by the amended Terms.</p>
     
+        
         <p>If you have any questions about these Terms of Use, please contact us at <a href="mailto:pirrefixus@gmail.com">pirrefixus@gmail.com</a>.</p>
+
+        <p>Return to <button id="signupButton" class="btn btn-primary">Sign up here</button></p>
+        <hr>
+        <hr>
+        <script>
+            document.getElementById('signupButton').addEventListener('click', function() {
+                window.location.href = "{% url 'account_signup' %}";
+            });
+        </script>
     </div>
 {% endblock %}
