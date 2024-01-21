@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'bag',
     'checkout',
     'profiles',
+    'blog',
     'crispy_forms', # required by crispy_forms
     'crispy_bootstrap4', # required by crispy_forms
 ]
@@ -86,6 +87,7 @@ TEMPLATES = [
                 'django.template.context_processors.media', # required by crispy_forms
                 'bag.contexts.bag_contents', # required by bag
                 'profiles.context_processors.loyalty_program_status',
+                'blog.context_processors.latest_posts',
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',

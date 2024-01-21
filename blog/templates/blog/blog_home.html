@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- ...other content... -->
+
+    <div class="row">
+        <!-- Blog Posts Grid -->
+        <div class="col-12">
+            <div class="row">
+                {% for post in posts %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <a href="{% url 'blog_detail' post.slug %}">
+                                {% if post.image %}
+                                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="card-img-top">
+                                {% endif %}
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <p class="card-text">{{ post.summary }}</p>
+                                <!-- Additional Blog Post Details -->
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Posted on {{ post.published_date }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Responsive Breaks -->
+                    <!-- ... -->
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- ...other content... -->
+{% endblock %}

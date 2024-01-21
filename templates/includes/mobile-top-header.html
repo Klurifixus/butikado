@@ -1,3 +1,16 @@
+<li class="list-inline-item dropdown d-block d-lg-none">
+    <a class="text-black nav-link p-2" href="{% url 'blog_home' %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="text-center">
+            <i class="fas fa-blog"></i>
+            <p class="my-0">Blog</p>
+        </div>
+    </a>
+    <div class="dropdown-menu border-0" aria-labelledby="user-options">
+        <a href="{% url 'skate_section' %}" class="dropdown-item">Skate</a>
+        <a href="{% url 'music_section' %}" class="dropdown-item">Music</a>
+        <a href="{% url 'history_section' %}" class="dropdown-item">History</a>
+    </div>
+</li>
 
 <li class="list-inline-item dropdown d-block d-lg-none">
     <a class="text-black nav-link p-2" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
