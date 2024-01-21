@@ -1,35 +1,35 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-from .models import BlogPost, SubCategory
+from .models import BlogPost, SubCategory, PostInteraction
 from django.views.decorators.http import require_POST
-from .models import PostInteraction
+
 
 def blog_home(request):
     posts = BlogPost.objects.all().order_by('-published_date')
-    return render(request, 'blog_home.html', {'posts': posts})
+    return render(request, 'blog/blog_home.html', {'posts': posts})
 
 def blog_detail(request, slug):
     post = get_object_or_404(BlogPost, slug=slug)
-    return render(request, 'blog_detail.html', {'post': post})
+    return render(request, 'blog/blog_detail.html', {'post': post})
 
 def skate_section(request):
     skate_subcategories = SubCategory.objects.filter(parent_category='SK')
     posts = BlogPost.objects.filter(subcategory__in=skate_subcategories).order_by('-published_date')
-    return render(request, 'skate_section.html', {'posts': posts})
+    return render(request, 'blog/skate_section.html', {'posts': posts})
 
 def music_section(request):
     music_subcategories = SubCategory.objects.filter(parent_category='MU')
     posts = BlogPost.objects.filter(subcategory__in=music_subcategories).order_by('-published_date')
-    return render(request, 'music_section.html', {'posts': posts})
+    return render(request, 'blog/music_section.html', {'posts': posts})
 
 def history_section(request):
     history_subcategories = SubCategory.objects.filter(parent_category='HI')
     posts = BlogPost.objects.filter(subcategory__in=history_subcategories).order_by('-published_date')
-    return render(request, 'history_section.html', {'posts': posts})
+    return render(request, 'blog/history_section.html', {'posts': posts})
 
 
 @require_POST
-def like_dislike_action(request):
+def like_dislike(request):
     post_id = request.POST.get('postId')
     action = request.POST.get('action')
     post = get_object_or_404(BlogPost, id=post_id)

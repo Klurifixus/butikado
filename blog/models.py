@@ -19,8 +19,8 @@ class SubCategory(models.Model):
     
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
-    subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL, null=True, blank=True)
-    image = models.ImageField(upload_to='blog_images/', blank=True, null=True)
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL, null=True, blank=False)
+    image = models.ImageField(upload_to='blog_images/', blank=False, null=True)
     youtube_video_url = models.URLField(blank=True, null=True, help_text="URL of the YouTube video")
     uploaded_video = models.FileField(upload_to='blog_videos/', blank=True, null=True)
     content = models.TextField(max_length=10000)

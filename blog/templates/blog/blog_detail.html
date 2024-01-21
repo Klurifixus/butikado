@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% include "like_dislike.html" %}
 
 {% block page_header %}
     <div class="container header-container">
@@ -10,17 +11,18 @@
 {% endblock %}
 
 {% block content %}
+    <div class="overlay"></div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
                 <div class="image-container my-5">
                     {% if post.image %}
                         <a href="{{ post.image.url }}" target="_blank">
-                            <img class="img-fluid" src="{{ post.image.url }}" alt="{{ post.title }}">
+                            <img class="card-img-top img-fluid" src="{{ post.image.url }}" alt="{{ post.title }}">
                         </a>
                     {% else %}
                         <a href="">
-                            <img class="img-fluid" src="{{ STATIC_URL }}default_post_image.png" alt="{{ post.title }}">
+                            <img class="card-img-top img-fluid" src="{{ STATIC_URL }}default_post_image.png" alt="{{ post.title }}">
                         </a>
                     {% endif %}
                 </div>
@@ -40,16 +42,18 @@
 
                     <!-- Blog Tags or Categories -->
                     {% if post.tags %}
-                    <p>
-                        {% for tag in post.tags.all %}
-                            <a class="badge badge-secondary" href="{% url 'blog_tag' tag.slug %}">{{ tag.name }}</a>
-                        {% endfor %}
-                    </p>
+                        <p>
+                            {% for tag in post.tags.all %}
+                                <a class="badge badge-secondary" href="{% url 'blog_tag' tag.slug %}">{{ tag.name }}</a>
+                            {% endfor %}
+                        </p>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
+    <hr>
+    <hr>
     <hr>
 {% endblock %}
 
@@ -67,7 +71,7 @@
         });
 
         function makeLikeDislikeRequest(postId, action) {
-            fetch(`/{% url 'blog_like_dislike_action' %}`, {
+            fetch(`/{% url 'blog:like_dislike' %}`, {
                 method: 'POST',
                 body: JSON.stringify({
                     'postId': postId,

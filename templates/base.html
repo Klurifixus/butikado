@@ -66,16 +66,16 @@
         <div class="col-12 col-md-4 my-auto py-lg-0 d-none d-lg-block">
             <ul class="list-inline list-unstyled text-center text-lg-right my-0">
                 <li class="list-inline-item dropdown">
-                    <a class="text-white nav-link" href="{% url 'blog_home' %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="text-white nav-link" href="{% url 'blog:blog_home' %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="text-center">
                             <i class="fas fa-blog fa-lg"></i>
                             <p class="my-0">Blog</p>
                         </div>
                     </a>
                     <div class="dropdown-menu border-0" aria-labelledby="user-options">
-                        <a href="{% url 'skate_section' %}" class="dropdown-item">Skate</a>
-                        <a href="{% url 'music_section' %}" class="dropdown-item">Music</a>
-                        <a href="{% url 'history_section' %}" class="dropdown-item">History</a>
+                        <a href="{% url 'blog:skate_section' %}" class="dropdown-item">Skate</a>
+                        <a href="{% url 'blog:music_section' %}" class="dropdown-item">Music</a>
+                        <a href="{% url 'blog:history_section' %}" class="dropdown-item">History</a>
                     </div>
                 </li>
                 <li class="list-inline-item dropdown">
