@@ -1,6 +1,7 @@
 .order-history {
     max-height: 416px;
     overflow-y: auto;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif !important;
     
 }
 
@@ -24,5 +25,5 @@
 
 table {
     border-collapse: collapse !important;
-    font-family: 'impact' !important;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif !important;
 }
