@@ -31,10 +31,6 @@ body {
     padding: 0.5rem;
 }
 
-.logged-in-text {
-    text-shadow: 2px 2px orange;
-}
-
 .main-logo-link {
     width: fit-content;
 }
