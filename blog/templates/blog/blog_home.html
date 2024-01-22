@@ -133,7 +133,7 @@
 
         function likeDislikePost(postId, action) {
             $.ajax({
-                url: '{% url "blog_like_dislike_action" %}',
+                url: '{% url "blog:like_dislike" %}',
                 method: 'POST',
                 data: {
                     'post_id': postId,

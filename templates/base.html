@@ -66,12 +66,21 @@
         <div class="col-12 col-md-4 my-auto py-lg-0 d-none d-lg-block">
             <ul class="list-inline list-unstyled text-center text-lg-right my-0">
                 <li class="list-inline-item dropdown">
-                    <a class="text-white nav-link" href="{% url 'blog:blog_home' %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="text-center">
-                            <i class="fas fa-blog fa-lg"></i>
-                            <p class="my-0">Blog</p>
-                        </div>
-                    </a>
+                    {% if request.resolver_match.namespace == 'blog' %}
+                        <a href="{% url 'home' %}" class="nav-link main-logo-link text-white">
+                            <div class="text-center">
+                                <i class="fas fa-tshirt fa-lg"></i>
+                                <p class="my-0">Shop</p>
+                            </div>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'blog:blog_home' %}" class="nav-link main-logo-link text-white">
+                            <div class="text-center">
+                                <i class="fas fa-blog fa-lg"></i>
+                                <p class="my-0">Blog</p>
+                            </div>
+                        </a>
+                    {% endif %}    
                     <div class="dropdown-menu border-0" aria-labelledby="user-options">
                         <a href="{% url 'blog:skate_section' %}" class="dropdown-item">Skate</a>
                         <a href="{% url 'blog:music_section' %}" class="dropdown-item">Music</a>
@@ -83,7 +92,7 @@
                         <div class="text-center">
                             {% if request.user.is_authenticated %}
                                 <div><i class="fas fa-crown fa-lg logged-in-icon"></i></div>
-                                <p class="my-0 logged-in-text">My Account</p> <!-- Add class 'logged-in-text' -->
+                                <p class="my-0 logged-in-text">Account</p>
                             {% else %}
                                 <div><i class="fas fa-user-circle fa-lg logged-out-icon"></i></div>
                                 <p class="my-0">Login</p>
