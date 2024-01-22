@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from cloudinary.models import CloudinaryField
+import cloudinary
 
 # Define CATEGORY_CHOICES outside of the BlogPost class
 CATEGORY_CHOICES = [
@@ -20,9 +22,9 @@ class SubCategory(models.Model):
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL, null=True, blank=False)
-    image = models.ImageField(upload_to='blog_images/', blank=False, null=True)
+    image = CloudinaryField('image', blank=True, null=True)
     youtube_video_url = models.URLField(blank=True, null=True, help_text="URL of the YouTube video")
-    uploaded_video = models.FileField(upload_to='blog_videos/', blank=True, null=True)
+    uploaded_video = CloudinaryField('video', blank=True, null=True)
     content = models.TextField(max_length=10000)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     published_date = models.DateTimeField(auto_now_add=True)
@@ -35,6 +37,15 @@ class BlogPost(models.Model):
 
     def total_dislikes(self):
         return PostInteraction.objects.filter(post=self, disliked=True).count()
+    
+    def get_image_url(self):
+        if self.image:
+            return cloudinary.CloudinaryImage(self.image.public_id).build_url(
+                transformation=[
+                    {'width': 300, 'height': 300, 'crop': 'fill', 'gravity': 'face'}
+                ]
+            )
+        return None
 
     def save(self, *args, **kwargs):
         if not self.slug:

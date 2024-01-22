@@ -29,42 +29,55 @@
             <div class="row">
                 {% for post in posts %}
                     <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100">
+                        <div class="card blog-card mb-4">
                             <a href="{% url 'blog_detail' post.slug %}">
                                 {% if post.image %}
-                                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="card-img-top">
+                                <div class="aspect-ratio">
+                                    <img src="{{ post.get_image_url }}" class="card-img-top" alt="{{ post.title }}">
+                                </div>
+                                {% elif post.has_video %}
+                                <div class="aspect-ratio-video">
+                                    {% if post.youtube_video_url %}
+                                        <iframe src="{{ post.youtube_video_url }}" frameborder="0" allowfullscreen></iframe>
+                                    {% else %}
+                                    <video controls>
+                                        <source src="{{ post.uploaded_video.url }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    {% endif %}
+                                </div>
                                 {% endif %}
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title">{{ post.title }}</h5>
                                 <p class="card-text">{{ post.summary }}</p>
                             </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Posted on {{ post.published_date }}</small>
-                            </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Posted on {{ post.published_date }}</small>
                         </div>
                     </div>
+                </div>
                     <!-- Responsive Breaks for Different Screen Sizes -->
-                    {% if forloop.counter|divisibleby:1 %}
+                    {% comment %} {% if forloop.counter|divisibleby:1 %}
                     <div class="col-12 d-sm-none mb-5">
                         <hr>
                     </div>
-                {% endif %}                        
-                {% if forloop.counter|divisibleby:2 %}
-                    <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
-                        <hr>
-                    </div>
-                {% endif %}
-                {% if forloop.counter|divisibleby:3 %}
-                    <div class="col-12 d-none d-lg-block d-xl-none mb-5">
-                        <hr>
-                    </div>
-                {% endif %}
-                {% if forloop.counter|divisibleby:4 %}
-                    <div class="col-12 d-none d-xl-block mb-5">
-                        <hr>
-                    </div>
-                {% endif %}
+                    {% endif %}                        
+                    {% if forloop.counter|divisibleby:2 %}
+                        <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+                            <hr>
+                        </div>
+                    {% endif %}
+                    {% if forloop.counter|divisibleby:3 %}
+                        <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                            <hr>
+                        </div>
+                    {% endif %}
+                    {% if forloop.counter|divisibleby:4 %}
+                        <div class="col-12 d-none d-xl-block mb-5">
+                            <hr>
+                        </div>
+                    {% endif %} {% endcomment %}
                 {% endfor %}
             </div>
         </div>

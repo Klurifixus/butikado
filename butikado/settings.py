@@ -180,6 +180,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'default_cloud_name'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', 'default_api_key'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'default_api_secret'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 # Stripe
 FREE_DELIVERY_THRESHOLD = 50 #amount of dollar for free delivery
 STANDARD_DELIVERY_PERCENTAGE = 10

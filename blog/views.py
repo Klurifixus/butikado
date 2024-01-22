@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import BlogPost, SubCategory, PostInteraction
 from django.views.decorators.http import require_POST
+import cloudinary.uploader
 
 
 def blog_home(request):
@@ -26,6 +27,18 @@ def history_section(request):
     history_subcategories = SubCategory.objects.filter(parent_category='HI')
     posts = BlogPost.objects.filter(subcategory__in=history_subcategories).order_by('-published_date')
     return render(request, 'blog/history_section.html', {'posts': posts})
+
+def upload_image(request):
+    if request.method == 'POST' and request.FILES['image']:
+        # Uploading and transforming the image
+        uploaded_image = request.FILES['image']
+        result = cloudinary.uploader.upload(
+            uploaded_image,
+            crop="fill",
+            gravity="face",
+            width=300,
+            height=300
+        )
 
 
 @require_POST
