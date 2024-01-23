@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+import dj_database_url
 from pathlib import Path
 from .env import DEBUG, SECRET_KEY, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY#, STRIPE_WH_SECRET
 
@@ -126,12 +127,20 @@ WSGI_APPLICATION = 'butikado.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# Database configuration
+IS_PRODUCTION = os.environ.get('DJANGO_PRODUCTION', 'False') == 'True'
+
+if IS_PRODUCTION:
+    DATABASES = {
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
