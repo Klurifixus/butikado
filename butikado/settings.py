@@ -215,11 +215,6 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 DEFAULT_FROM_EMAIL = 'earnshop@example.com'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Additional settings for security and performance
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 
 # # # Provider specific settings
 # SOCIALACCOUNT_PROVIDERS = {
