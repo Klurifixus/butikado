@@ -43,17 +43,14 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.amazon',
-    # 'allauth.socialaccount.providers.facebook',
-    # 'allauth.socialaccount.providers.linkedin',
     'home',
     'products',
     'bag',
     'checkout',
     'profiles',
     'blog',
-    'crispy_forms', # required by crispy_forms
-    'crispy_bootstrap4', # required by crispy_forms
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -64,7 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # required by whitenoise
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'allauth.account.middleware.AccountMiddleware',
 ]
 
@@ -83,43 +80,49 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request', # required by allauth
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media', # required by crispy_forms
-                'bag.contexts.bag_contents', # required by bag
+                'django.template.context_processors.media',
+                'bag.contexts.bag_contents',
                 'profiles.context_processors.loyalty_program_status',
                 'blog.context_processors.latest_posts',
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
                 'crispy_forms.templatetags.crispy_forms_field',
-            ], # required by crispy_forms
+            ],
         },
     },
 ]
 
+# Authentication and Email Settings
+
+# Django Message Storage
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-# Email settings
-AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Standard Django authentication
+    'allauth.account.auth_backends.AuthenticationBackend',  # Allauth authentication
+]
 
 SITE_ID = 1
 
+# Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_PORT = int(os.environ.get('EMAIL_PORT'))
+try:
+    EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))  # Default to 587 if not set
+except ValueError:
+    EMAIL_PORT = 587
+
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'False').lower() == 'true'
 EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False').lower() == 'true'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') 
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
+# Allauth Account Settings
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
@@ -213,37 +216,12 @@ CLOUDINARY_STORAGE = {
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Stripe
-FREE_DELIVERY_THRESHOLD = 50 #amount of dollar for free delivery
+FREE_DELIVERY_THRESHOLD = 50
 STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
-#STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 DEFAULT_FROM_EMAIL = 'DEFAULT_FROM_EMAIL'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# # # Provider specific settings
-# SOCIALACCOUNT_PROVIDERS = {
-#     'amazon': {
-#         'APP': {
-#             'client_id': '<amazon_client_id>',
-#             'secret': '<amazon_secret>',
-#             'key': ''
-#         }
-#     },
-#     'facebook': {
-#         'APP': {
-#             'client_id': '<facebook_client_id>',
-#             'secret': '<facebook_secret>',
-#             'key': ''
-#         }
-#     },
-#     'linkedin': {
-#         'APP': {
-#             'client_id': '<linkedin_client_id>',
-#             'secret': '<linkedin_secret>',
-#             'key': ''
-#         }
-#     }
-# }
