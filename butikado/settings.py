@@ -28,13 +28,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-if 'DYNO' in os.environ:
-    DEBUG = False
-    ALLOWED_HOSTS = ['https://earnsshopskater-b0a8c0e4297a.herokuapp.com/']
-else:  # If not on Heroku (local development)
-    DEBUG = True
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://earnsshopskater-b0a8c0e4297a.herokuapp.com']
 
 # Application definition
 
