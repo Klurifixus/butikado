@@ -10,6 +10,10 @@ from profiles.forms import UserProfileForm
 from bag.contexts import bag_contents
 import stripe
 import json
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 # Helper function to calculate the discount
 def calculate_discount(order_total, is_eligible_for_discount):
@@ -35,6 +39,7 @@ def cache_checkout_data(request):
         })
         return HttpResponse(status=200)
     except Exception as e:
+        logger.error('Error in cache_checkout_data: ', exc_info=True)
         messages.error(request, 'Sorry, your payment cannot be \
             processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
