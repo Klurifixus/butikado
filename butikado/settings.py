@@ -13,19 +13,20 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 import dj_database_url
 from pathlib import Path
-from .env import DEBUG, SECRET_KEY, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY#, STRIPE_WH_SECRET
+from dotenv import load_dotenv
+
+# Load environment variables from .env file for local development
+# This line can be omitted if you prefer to set environment variables in another way locally
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = []
 
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # required by whitenoise
     'allauth.account.middleware.AccountMiddleware',
 ]
 
@@ -136,10 +138,7 @@ if IS_PRODUCTION:
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
     }
 
 
@@ -176,6 +175,11 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Simplifies the serving of static files (such as CSS, JavaScript, and images)
+# This tells WhiteNoise to use compressed and hashed versions of the static files if available
+# WhiteNoise will also cache them indefinitely
+WHITENOISE_USE_FINDERS = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -206,6 +210,12 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 #STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 DEFAULT_FROM_EMAIL = 'earnshop@example.com'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Additional settings for security and performance
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # # # Provider specific settings
 # SOCIALACCOUNT_PROVIDERS = {
