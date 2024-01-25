@@ -13,3 +13,4 @@ __pycache__
 .env
 /swaks.log
 /output/
+.sql
