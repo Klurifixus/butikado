@@ -3,11 +3,15 @@ from django.http import JsonResponse
 from .models import BlogPost, SubCategory, PostInteraction
 from django.views.decorators.http import require_POST
 import cloudinary.uploader
+import logging
 
 
 def blog_home(request):
-    posts = BlogPost.objects.all().order_by('-published_date')
-    return render(request, 'blog/blog_home.html', {'posts': posts})
+    try:
+        posts = BlogPost.objects.all().order_by('-published_date')
+        return render(request, 'blog/blog_home.html', {'posts': posts})
+    except Exception as e:
+        logging.error(f"Error in blog_home view: {e}")
 
 def blog_detail(request, slug):
     post = get_object_or_404(BlogPost, slug=slug)
