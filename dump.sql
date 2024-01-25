@@ -1733,9 +1733,8 @@ begin
     "settings" text not null,
     primary key ("id"),
     check ((
-      case ("settings" is json)
-        when true then 1
-        when false then 0
+      when json_typeof("settings") is not null then 1
+        else 0
       end <> 0
       or "settings" is null
     ))
