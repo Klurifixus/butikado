@@ -8,6 +8,7 @@ from products.models import Product
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
 from bag.contexts import bag_contents
+from butikado.utils.mail_utils import send_mailgun_email
 import stripe
 import json
 import logging
@@ -206,6 +207,17 @@ def checkout_success(request, order_number):
             user_profile_form = UserProfileForm(profile_data, instance=profile)
             if user_profile_form.is_valid():
                 user_profile_form.save()
+
+     # Email subject and body can be customized as needed
+    email_subject = "Thank you for your purchase!"
+    email_body = f"Your order details... Order number is {order_number}."
+
+    send_mailgun_email(
+        subject=email_subject,
+        message=email_body,
+        to_email=[order.email],
+        from_email=settings.DEFAULT_FROM_EMAIL
+    )            
 
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \

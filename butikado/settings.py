@@ -110,7 +110,10 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 # Email Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY')
+MAILGUN_DOMAIN = os.environ.get('MAILGUN_DOMAIN')
+
+EMAIL_BACKEND = 'butikado.utils.backends.MailgunEmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
 try:
     EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))  # Default to 587 if not set
@@ -122,7 +125,6 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True').lower() == 'true'
 EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False').lower() == 'true'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 # Allauth Account Settings
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
@@ -223,7 +225,7 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
-DEFAULT_FROM_EMAIL = 'DEFAULT_FROM_EMAIL'
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', '')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SECURE_SSL_REDIRECT = False
