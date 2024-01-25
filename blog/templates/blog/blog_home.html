@@ -58,7 +58,7 @@
                     </div>
                 </div>
                     <!-- Responsive Breaks for Different Screen Sizes -->
-                    {% comment %} {% if forloop.counter|divisibleby:1 %}
+                    {% if forloop.counter|divisibleby:1 %}
                     <div class="col-12 d-sm-none mb-5">
                         <hr>
                     </div>
@@ -77,7 +77,7 @@
                         <div class="col-12 d-none d-xl-block mb-5">
                             <hr>
                         </div>
-                    {% endif %} {% endcomment %}
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
