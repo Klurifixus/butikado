@@ -42,8 +42,9 @@
                     <p>{{ post.content }}</p>
                     <p>Likes: <span id="like-count-{{ post.id }}">{{ post.total_likes }}</span></p>
                     <p>Dislikes: <span id="dislike-count-{{ post.id }}">{{ post.total_dislikes }}</span></p>
-                    <button id="like-btn" data-post-id="{{ post.id }}">Like</button>
-                    <button id="dislike-btn" data-post-id="{{ post.id }}">Dislike</button>
+                    <button id="like-btn-{{ post.id }}" class="like-btn" data-post-id="{{ post.id }}">Like</button>
+                    <button id="dislike-btn-{{ post.id }}" class="dislike-btn" data-post-id="{{ post.id }}">Dislike</button>
+
 
                     <!-- Blog Tags or Categories -->
                     {% if post.tags %}
@@ -65,20 +66,20 @@
 {% block postloadjs %}
     {{ block.super }}
     <script type="text/javascript">
-        document.querySelectorAll('.like-button').forEach(button => {
+        document.querySelectorAll('.like-btn').forEach(button => {
             button.addEventListener('click', function() {
                 var postId = this.dataset.postId;
                 makeLikeDislikeRequest(postId, 'like');
             });
         });
-    
-        document.querySelectorAll('.dislike-button').forEach(button => {
+        
+        document.querySelectorAll('.dislike-btn').forEach(button => {
             button.addEventListener('click', function() {
                 var postId = this.dataset.postId;
                 makeLikeDislikeRequest(postId, 'dislike');
             });
         });
-
+        
         function makeLikeDislikeRequest(postId, action) {
             fetch(`/{% url 'blog:like_dislike' %}`, {
                 method: 'POST',
