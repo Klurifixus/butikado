@@ -2,8 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
-from django.core.exceptions import ValidationError
 from PIL import Image
+from django.core.exceptions import ValidationError
 from io import BytesIO
 import cloudinary
 import re
@@ -31,12 +31,19 @@ def validate_youtube_url(value):
 
 def validate_square_image(image_field):
     if image_field:
-        # Fetch the image from Cloudinary as a BytesIO object
-        image_url = cloudinary.CloudinaryImage(image_field.public_id).build_url(secure=True)
-        response = requests.get(image_url)
-        image = Image.open(BytesIO(response.content))
+        # Check if the image is stored on Cloudinary (has a public_id attribute)
+        if hasattr(image_field, 'public_id'):
+            # Fetch the image from Cloudinary as a BytesIO object
+            image_url = cloudinary.CloudinaryImage(image_field.public_id).build_url(secure=True)
+            response = requests.get(image_url)
+            image = Image.open(BytesIO(response.content))
+        else:
+            # If not on Cloudinary, open the image directly
+            image = Image.open(image_field)
 
-        if image.width != image.height:
+        width, height = image.size
+
+        if width != height:
             raise ValidationError("The image is not square. Please upload a square image.")
     
 class BlogPost(models.Model):
