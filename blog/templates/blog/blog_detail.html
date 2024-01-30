@@ -31,6 +31,14 @@
                 <div class="blog-details-container mb-5 mt-md-5">
                     <h2>{{ post.title }}</h2>
                     <p class="text-muted"><i class="fas fa-calendar-alt"></i> Published on {{ post.published_date|date:"F j, Y" }}</p>
+                    
+                    <!-- Check if it's a YouTube video link -->
+                    {% if post.youtube_video_url %}
+                        <div class="embed-responsive embed-responsive-16by9">
+                             <iframe class="embed-responsive-item" src="{{ post.youtube_video_url }}" allowfullscreen></iframe>
+                        </div>
+                    {% endif %}
+                    
                     <p>{{ post.content }}</p>
                     <p>Author: {{ post.author.username }}</p>
                     <p>Posted on: {{ post.published_date|date:"Y-m-d" }}</p>
