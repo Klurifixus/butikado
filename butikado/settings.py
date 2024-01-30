@@ -14,6 +14,9 @@ import os
 import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Load environment variables from .env file for local development
 # This line can be omitted if you prefer to set environment variables in another way locally
@@ -216,6 +219,13 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.getenv('CLOUDINARY_API_KEY', 'default_api_key'),
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'default_api_secret'),
 }
+
+cloudinary.config(
+  cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME', 'default_cloud_name'), 
+  api_key = os.getenv('CLOUDINARY_API_KEY', 'default_api_key'),
+  api_secret = os.getenv('CLOUDINARY_API_SECRET', 'default_api_secret'),
+  secure = True
+)
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
