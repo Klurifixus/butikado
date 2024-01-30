@@ -77,15 +77,29 @@ def history_section(request):
 
 def upload_image(request):
     if request.method == 'POST' and request.FILES['image']:
-        # Uploading and transforming the image
-        uploaded_image = request.FILES['image']
-        result = cloudinary.uploader.upload(
-            uploaded_image,
-            crop="fill",
-            gravity="face",
-            width=300,
-            height=300
-        )
+        try:
+            # Uploading and transforming the image
+            uploaded_image = request.FILES['image']
+            result = cloudinary.uploader.upload(
+                uploaded_image,
+                crop="fill",
+                gravity="face",
+                width=300,
+                height=300,
+                secure=True  # Force HTTPS
+            )
+
+            # Get the HTTPS image URL
+            image_url = result['secure_url']
+
+            # Return the HTTPS image URL in the response
+            return JsonResponse({'success': True, 'image_url': image_url})
+        except Exception as e:
+            # Handle any exceptions (e.g., image upload failure)
+            return JsonResponse({'success': False, 'error_message': str(e)})
+
+    # Handle other HTTP methods or no image uploaded
+    return JsonResponse({'success': False, 'error_message': 'Invalid request'})
 
 
 @require_POST
