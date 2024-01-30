@@ -72,16 +72,16 @@
                 makeLikeDislikeRequest(postId, 'like');
             });
         });
-        
+    
         document.querySelectorAll('.dislike-btn').forEach(button => {
             button.addEventListener('click', function() {
                 var postId = this.dataset.postId;
                 makeLikeDislikeRequest(postId, 'dislike');
             });
         });
-        
+    
         function makeLikeDislikeRequest(postId, action) {
-            fetch(`/{% url 'blog:like_dislike' %}`, {
+            fetch(`/blog/like_dislike/`, {  
                 method: 'POST',
                 body: JSON.stringify({
                     'postId': postId,
