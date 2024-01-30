@@ -1,9 +1,31 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
+from django.http import HttpResponseForbidden
+from django.contrib.auth.decorators import login_required
+from .forms import BlogPostForm
 from .models import BlogPost, SubCategory, PostInteraction
 from django.views.decorators.http import require_POST
 import cloudinary.uploader
 import logging
+
+@login_required
+def add_blog_post(request):
+    # Check if the user is a superuser
+    if not request.user.is_superuser:
+        # If not, return a forbidden response
+        return HttpResponseForbidden("You are not authorized to add a blog post.")
+
+    if request.method == 'POST':
+        form = BlogPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            blog_post = form.save(commit=False)
+            blog_post.author = request.user  # Set the author as the current user
+            blog_post.save()
+            return redirect('blog_home')
+    else:
+        form = BlogPostForm()
+
+    return render(request, 'blog/add_blog_post.html', {'form': form})
 
 
 def blog_home(request):
