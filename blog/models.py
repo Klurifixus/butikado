@@ -7,6 +7,7 @@ from PIL import Image
 from io import BytesIO
 import cloudinary
 import re
+import requests
 
 # Define CATEGORY_CHOICES outside of the BlogPost class
 CATEGORY_CHOICES = [
@@ -29,9 +30,14 @@ def validate_youtube_url(value):
         raise ValidationError('Invalid YouTube URL')
 
 def validate_square_image(image_field):
-    image = Image.open(image_field)
-    if image.width != image.height:
-        raise ValidationError("The image is not square. Please upload a square image.")
+    if image_field:
+        # Fetch the image from Cloudinary as a BytesIO object
+        image_url = cloudinary.CloudinaryImage(image_field.public_id).build_url()
+        response = requests.get(image_url)
+        image = Image.open(BytesIO(response.content))
+
+        if image.width != image.height:
+            raise ValidationError("The image is not square. Please upload a square image.")
     
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
