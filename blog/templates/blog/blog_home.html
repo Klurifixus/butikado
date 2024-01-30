@@ -110,21 +110,23 @@
             });
         });
         
-        function likeDislikePost(postId, action) {
-            $.ajax({
-                url: '{% url "blog:like_dislike" %}',
+        function makeLikeDislikeRequest(postId, action) {
+            fetch(`{% url 'blog:like_dislike' %}`, {  
                 method: 'POST',
-                data: {
-                    'post_id': postId,
-                    'action': action,
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                },
-                success: function(data) {
-                    $('#likes-count-' + postId).text(data.likes);
-                    $('#dislikes-count-' + postId).text(data.dislikes);
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    console.log('Error:', errorThrown);
+                body: JSON.stringify({
+                    'postId': postId,
+                    'action': action
+                }),
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    document.getElementById('like-count-' + postId).innerText = data.likes;
+                    document.getElementById('dislike-count-' + postId).innerText = data.dislikes;
                 }
             });
         }

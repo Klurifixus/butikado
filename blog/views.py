@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from .forms import BlogPostForm
 from .models import BlogPost, SubCategory, PostInteraction
 from django.views.decorators.http import require_POST
@@ -102,6 +103,7 @@ def upload_image(request):
     return JsonResponse({'success': False, 'error_message': 'Invalid request'})
 
 
+@csrf_exempt
 @require_POST
 def like_dislike(request):
     post_id = request.POST.get('postId')

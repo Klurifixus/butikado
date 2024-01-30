@@ -81,7 +81,7 @@
         });
     
         function makeLikeDislikeRequest(postId, action) {
-            fetch(`/blog/like_dislike/`, {  
+            fetch(`{% url 'blog:like_dislike' %}`, {  
                 method: 'POST',
                 body: JSON.stringify({
                     'postId': postId,
