@@ -38,10 +38,10 @@
                              <iframe class="embed-responsive-item" src="{{ post.youtube_video_url }}" allowfullscreen></iframe>
                         </div>
                     {% endif %}
-                    
+
                     <p>{{ post.content }}</p>
-                    <p>Likes: {{ post.total_likes }}</p>
-                    <p>Dislikes: {{ post.total_dislikes }}</p>
+                    <p>Likes: <span id="like-count-{{ post.id }}">{{ post.total_likes }}</span></p>
+                    <p>Dislikes: <span id="dislike-count-{{ post.id }}">{{ post.total_dislikes }}</span></p>
                     <button id="like-btn" data-post-id="{{ post.id }}">Like</button>
                     <button id="dislike-btn" data-post-id="{{ post.id }}">Dislike</button>
 
@@ -65,14 +65,18 @@
 {% block postloadjs %}
     {{ block.super }}
     <script type="text/javascript">
-        document.getElementById("like-btn").addEventListener("click", function() {
-            var postId = this.dataset.postId;
-            makeLikeDislikeRequest(postId, "like");
+        document.querySelectorAll('.like-button').forEach(button => {
+            button.addEventListener('click', function() {
+                var postId = this.dataset.postId;
+                makeLikeDislikeRequest(postId, 'like');
+            });
         });
-
-        document.getElementById("dislike-btn").addEventListener("click", function() {
-            var postId = this.dataset.postId;
-            makeLikeDislikeRequest(postId, "dislike");
+    
+        document.querySelectorAll('.dislike-button').forEach(button => {
+            button.addEventListener('click', function() {
+                var postId = this.dataset.postId;
+                makeLikeDislikeRequest(postId, 'dislike');
+            });
         });
 
         function makeLikeDislikeRequest(postId, action) {
@@ -90,8 +94,8 @@
             .then(response => response.json())
             .then(data => {
                 if(data.success) {
-                    document.getElementById('like-count').innerText = data.likes;
-                    document.getElementById('dislike-count').innerText = data.dislikes;
+                    document.getElementById('like-count-' + postId).innerText = data.likes;
+                    document.getElementById('dislike-count-' + postId).innerText = data.dislikes;
                 }
             });
         }
