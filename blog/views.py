@@ -113,5 +113,10 @@ def like_dislike(request):
         elif action == 'dislike':
             post.dislikes += 1
 
-    post.save()
-    return JsonResponse({'success': True, 'likes': post.likes, 'dislikes': post.dislikes})
+    interaction.save()
+
+    return JsonResponse({
+        'success': True,
+        'likes': post.total_likes(),
+        'dislikes': post.total_dislikes()
+    })
