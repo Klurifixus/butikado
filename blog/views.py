@@ -10,18 +10,16 @@ import logging
 
 @login_required
 def add_blog_post(request):
-    # Check if the user is a superuser
     if not request.user.is_superuser:
-        # If not, return a forbidden response
         return HttpResponseForbidden("You are not authorized to add a blog post.")
 
     if request.method == 'POST':
         form = BlogPostForm(request.POST, request.FILES)
         if form.is_valid():
             blog_post = form.save(commit=False)
-            blog_post.author = request.user  # Set the author as the current user
+            blog_post.author = request.user
             blog_post.save()
-            return redirect('blog_home')
+            return redirect('blog:blog_detail', slug=blog_post.slug)
     else:
         form = BlogPostForm()
 
