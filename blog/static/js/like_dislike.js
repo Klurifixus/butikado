@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function makeLikeDislikeRequest(postId, action) {
     const url = new URL('/blog/like_dislike/', window.location.origin);
-    fetch(url, {
+    fetch(`/blog/like_dislike/`, {
         method: 'POST',
         body: JSON.stringify({
             'postId': postId,
