@@ -32,7 +32,7 @@ def validate_youtube_url(value):
 def validate_square_image(image_field):
     if image_field:
         # Fetch the image from Cloudinary as a BytesIO object
-        image_url = cloudinary.CloudinaryImage(image_field.public_id).build_url()
+        image_url = cloudinary.CloudinaryImage(image_field.public_id).build_url(secure=True)
         response = requests.get(image_url)
         image = Image.open(BytesIO(response.content))
 
