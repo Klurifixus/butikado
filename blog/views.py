@@ -7,6 +7,7 @@ from .models import BlogPost, SubCategory, PostInteraction
 from django.views.decorators.http import require_POST
 import cloudinary.uploader
 import logging
+import re
 
 @login_required
 def add_blog_post(request):
@@ -15,9 +16,31 @@ def add_blog_post(request):
 
     if request.method == 'POST':
         form = BlogPostForm(request.POST, request.FILES)
+        def extract_video_id(url):
+            pattern = r'(?:https?://)?(?:www\.)?youtu(?:be\.com/watch\?v=|\.be/)([\w-]+)(?:&\S*)?$'
+    
+            # Use re.search to find the video ID in the URL
+            match = re.search(pattern, url)
+    
+            if match:
+                video_id = match.group(1)
+                return video_id
+            else:
+                return None
+
         if form.is_valid():
             blog_post = form.save(commit=False)
             blog_post.author = request.user
+
+            # Extract the video ID from youtube_video_url
+            youtube_url = form.cleaned_data.get('youtube_video_url')
+            video_id = extract_video_id(youtube_url)
+
+            if video_id:
+                # Construct the embed URL
+                embed_url = f"https://www.youtube.com/embed/{video_id}"
+                blog_post.youtube_video_url = embed_url
+
             blog_post.save()
             return redirect('blog:blog_detail', slug=blog_post.slug)
     else:

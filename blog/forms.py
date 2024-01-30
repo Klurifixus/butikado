@@ -20,7 +20,14 @@ class BlogPostForm(forms.ModelForm):
         self.fields['image'].widget = forms.FileInput(attrs={'class': 'form-control-file'})
 
         # YouTube video URL field
-        self.fields['youtube_video_url'].widget.attrs.update({'class': 'form-control'})
+        self.fields['youtube_video_url'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Enter a valid YouTube video URL (optional)',
+            'help_text': 'Example: https://www.youtube.com/watch?v=YOUR_VIDEO_ID'
+        })
+
+        # Set youtube_video_url as optional (not required)
+        self.fields['youtube_video_url'].required = False
 
         # Uploaded video field: using a FileInput widget
         self.fields['uploaded_video'].widget = forms.FileInput(attrs={'class': 'form-control-file'})
