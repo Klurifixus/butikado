@@ -11,4 +11,5 @@ urlpatterns = [
     path('history_section/', views.history_section, name='history_section'),
     path('<slug:slug>/', views.blog_detail, name='blog_detail'),
     path('blog/like_dislike/', views.like_dislike, name='like_dislike'),
+    path('add/', views.add_blog_post, name='add_blog_post'),
 ]
