@@ -95,14 +95,13 @@ def like_dislike(request):
     post = get_object_or_404(BlogPost, id=post_id)
 
     if request.user.is_authenticated:
-        # Handle likes/dislikes from authenticated users
         interaction, created = PostInteraction.objects.get_or_create(user=request.user, post=post)
 
         if action == 'like':
-            interaction.liked = not interaction.liked
+            interaction.liked = not interaction.liked  # Toggle like
             interaction.disliked = False if interaction.liked else interaction.disliked
         elif action == 'dislike':
-            interaction.disliked = not interaction.disliked
+            interaction.disliked = not interaction.disliked  # Toggle dislike
             interaction.liked = False if interaction.disliked else interaction.liked
 
         interaction.save()
@@ -113,7 +112,10 @@ def like_dislike(request):
         elif action == 'dislike':
             post.dislikes += 1
 
-    interaction.save()
+        post.save()  # Save the post object
+
+    # Refresh post to get updated counts
+    post.refresh_from_db()
 
     return JsonResponse({
         'success': True,
