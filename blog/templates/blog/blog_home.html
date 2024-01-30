@@ -54,8 +54,8 @@
                             </div>
                             <div class="card-footer">
                                 <!-- Like and dislike buttons here -->
-                                <button class="btn btn-sm btn-primary like-btn" data-post-id="{{ post.id }}">Like</button>
-                                <button class="btn btn-sm btn-danger dislike-btn" data-post-id="{{ post.id }}">Dislike</button>
+                                <button id="like-btn-{{ post.id }}" class="like-btn" data-post-id="{{ post.id }}">Like</button>
+                                <button id="dislike-btn-{{ post.id }}" class="dislike-btn" data-post-id="{{ post.id }}">Dislike</button>
                                 <span class="likes-count" id="likes-count-{{ post.id }}">{{ post.total_likes }}</span> Likes
                                 <span class="dislikes-count" id="dislikes-count-{{ post.id }}">{{ post.total_dislikes }}</span> Dislikes
                             </div>
@@ -95,40 +95,22 @@
 
 {% block postloadjs %}
     {{ block.super }}
+    <script src="{% static 'js/like_dislike.js' %}" type="text/javascript"></script>    
     <script type="text/javascript">
-        $('.like-btn').each(function() {
-            $(this).click(function() {
-                var postId = $(this).data('post-id');
-                likeDislikePost(postId, 'like');
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.like-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    var postId = this.dataset.postId;
+                    makeLikeDislikeRequest(postId, 'like');
+                });
+            });
+        
+            document.querySelectorAll('.dislike-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    var postId = this.dataset.postId;
+                    makeLikeDislikeRequest(postId, 'dislike');
+                });
             });
         });
-        
-        $('.dislike-btn').each(function() {
-            $(this).click(function() {
-                var postId = $(this).data('post-id');
-                likeDislikePost(postId, 'dislike');
-            });
-        });
-        
-        function makeLikeDislikeRequest(postId, action) {
-            fetch(`{% url 'blog:like_dislike' %}`, {  
-                method: 'POST',
-                body: JSON.stringify({
-                    'postId': postId,
-                    'action': action
-                }),
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.success) {
-                    document.getElementById('like-count-' + postId).innerText = data.likes;
-                    document.getElementById('dislike-count-' + postId).innerText = data.dislikes;
-                }
-            });
-        }
     </script>
 {% endblock %}
