@@ -52,9 +52,13 @@
                                 <h5 class="card-title">{{ post.title }}</h5>
                                 <p class="card-text">{{ post.summary }}</p>
                             </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Posted on {{ post.published_date }}</small>
-                        </div>
+                            <div class="card-footer">
+                                <!-- Like and dislike buttons here -->
+                                <button id="like-btn-{{ post.id }}" class="btn btn-sm btn-primary like-btn" data-post-id="{{ post.id }}">Like</button>
+                                <button id="dislike-btn-{{ post.id }}" class="btn btn-sm btn-danger dislike-btn" data-post-id="{{ post.id }}">Dislike</button>
+                                <span class="likes-count" id="likes-count-{{ post.id }}">{{ post.total_likes }}</span> Likes
+                                <span class="dislikes-count" id="dislikes-count-{{ post.id }}">{{ post.total_dislikes }}</span> Dislikes
+                            </div>
                     </div>
                 </div>
                     <!-- Responsive Breaks for Different Screen Sizes -->
@@ -80,34 +84,6 @@
                     {% endif %}
                 {% endfor %}
             </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            {% for post in posts %}
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card mb-4">
-                        {% if post.image %}
-                            <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                            <p class="card-text">{{ post.summary }}</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Posted on {{ post.published_date }}</small>
-                        </div>
-                        <div class="card-footer">
-                            <!-- Add like and dislike buttons here -->
-                            <button id="like-btn-{{ post.id }}" class="btn btn-sm btn-primary like-btn" data-post-id="{{ post.id }}">Like</button>
-                            <button id="dislike-btn-{{ post.id }}" class="btn btn-sm btn-danger dislike-btn" data-post-id="{{ post.id }}">Dislike</button>
-                            <span class="likes-count" id="likes-count-{{ post.id }}">{{ post.likes }}</span> Likes
-                            <span class="dislikes-count" id="dislikes-count-{{ post.id }}">{{ post.dislikes }}</span> Dislikes
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
         </div>
     </div>
     <div class="btt-button shadow-sm d-none d-md-inline-block">
