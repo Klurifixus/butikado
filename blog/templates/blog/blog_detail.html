@@ -18,11 +18,11 @@
                 <div class="image-container my-5">
                     {% if post.image %}
                         <a href="{{ post.image.url }}" target="_blank">
-                            <img class="card-img-top img-fluid" src="{{ post.image.url }}" alt="{{ post.title }}">
+                            <img class="card-img-top img-fluid" src="{{ post.image.url | safe }}" alt="{{ post.title }}">
                         </a>
                     {% else %}
                         <a href="">
-                            <img class="card-img-top img-fluid" src="{{ STATIC_URL }}default_post_image.png" alt="{{ post.title }}">
+                            <img class="card-img-top img-fluid" src="{% static 'default_post_image.png' %}" alt="{{ post.title }}">
                         </a>
                     {% endif %}
                 </div>
@@ -31,14 +31,20 @@
                 <div class="blog-details-container mb-5 mt-md-5">
                     <h2>{{ post.title }}</h2>
                     <p class="text-muted"><i class="fas fa-calendar-alt"></i> Published on {{ post.published_date|date:"F j, Y" }}</p>
+                    
+                    <!-- Check if it's a YouTube video link -->
+                    {% if post.youtube_video_url %}
+                        <div class="embed-responsive embed-responsive-16by9">
+                             <iframe class="embed-responsive-item" src="{{ post.youtube_video_url }}" allowfullscreen></iframe>
+                        </div>
+                    {% endif %}
+
                     <p>{{ post.content }}</p>
-                    <p>Author: {{ post.author.username }}</p>
-                    <p>Posted on: {{ post.published_date|date:"Y-m-d" }}</p>
-                    <p>{{ post.content }}</p>
-                    <p>Likes: {{ post.total_likes }}</p>
-                    <p>Dislikes: {{ post.total_dislikes }}</p>
-                    <button id="like-btn" data-post-id="{{ post.id }}">Like</button>
-                    <button id="dislike-btn" data-post-id="{{ post.id }}">Dislike</button>
+                    <p>Likes: <span id="like-count-{{ post.id }}">{{ post.total_likes }}</span></p>
+                    <p>Dislikes: <span id="dislike-count-{{ post.id }}">{{ post.total_dislikes }}</span></p>
+                    <button id="like-btn-{{ post.id }}" class="like-btn" data-post-id="{{ post.id }}">Like</button>
+                    <button id="dislike-btn-{{ post.id }}" class="dislike-btn" data-post-id="{{ post.id }}">Dislike</button>
+
 
                     <!-- Blog Tags or Categories -->
                     {% if post.tags %}
@@ -59,36 +65,22 @@
 
 {% block postloadjs %}
     {{ block.super }}
+    <script src="{% static 'js/like_dislike.js' %}" type="text/javascript"></script>    
     <script type="text/javascript">
-        document.getElementById("like-btn").addEventListener("click", function() {
-            var postId = this.dataset.postId;
-            makeLikeDislikeRequest(postId, "like");
-        });
-
-        document.getElementById("dislike-btn").addEventListener("click", function() {
-            var postId = this.dataset.postId;
-            makeLikeDislikeRequest(postId, "dislike");
-        });
-
-        function makeLikeDislikeRequest(postId, action) {
-            fetch(`/{% url 'blog:like_dislike' %}`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    'postId': postId,
-                    'action': action
-                }),
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.success) {
-                    document.getElementById('like-count').innerText = data.likes;
-                    document.getElementById('dislike-count').innerText = data.dislikes;
-                }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.like-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    var postId = this.dataset.postId;
+                    makeLikeDislikeRequest(postId, 'like');
+                });
             });
-        }
+        
+            document.querySelectorAll('.dislike-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    var postId = this.dataset.postId;
+                    makeLikeDislikeRequest(postId, 'dislike');
+                });
+            });
+        });
     </script>
 {% endblock %}

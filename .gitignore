@@ -1,0 +1,24 @@
+<<<<<<< HEAD
+=======
+core.Microsoft*
+core.mongo*
+core.python*
+env.py
+__pycache__/
+*.py[cod]
+node_modules/
+.github/
+cloudinary_python.txt
+<<<<<<< HEAD
+*.sqlite3
+*.pyc
+__pycache__
+.env
+/swaks.log
+/output/
+.sql
+info.txt
+
+=======
+>>>>>>> f031be9 (Initial commit)
+>>>>>>> ff53e07664eb617fedfb7888943ff6a4cded9192
