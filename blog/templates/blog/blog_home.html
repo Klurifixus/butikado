@@ -53,7 +53,9 @@
                                 <p class="card-text">{{ post.summary }}</p>
                             </div>
                             <div class="card-footer">
-                                <!-- Like and dislike buttons here -->
+                                <form id="like-dislike-form" method="post" style="display:none;">
+                                    {% csrf_token %}
+                                </form>
                                 <button id="like-btn-{{ post.id }}" class="like-btn" data-post-id="{{ post.id }}">Like</button>
                                 <button id="dislike-btn-{{ post.id }}" class="dislike-btn" data-post-id="{{ post.id }}">Dislike</button>
                                 <span class="likes-count" id="likes-count-{{ post.id }}">{{ post.total_likes }}</span> Likes
