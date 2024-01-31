@@ -1,24 +1,23 @@
 
 function getCsrfToken() {
-    const csrfTokenInput = document.getElementById('csrfToken');
-    return csrfTokenInput ? csrfTokenInput.value : null;
+    return document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 }
+
 
 function makeLikeDislikeRequest(postId, action) {
     const csrfToken = getCsrfToken();
-    if (!csrfToken) {
-        console.error('CSRF token not found.');
-        return;
-    }
     const url = new URL('/blog/like_dislike/', window.location.origin);
     fetch(url, {
         method: 'POST',
-        body: JSON.stringify({ postId, action }),
+        body: JSON.stringify({
+            'postId': postId,
+            'action': action
+        }),
         headers: {
-            'Content-Type': 'application/json',
             'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/json'
         },
-        credentials: 'same-origin'
+        credentials: 'include'
     })
     .then(response => {
         if (!response.ok) {
