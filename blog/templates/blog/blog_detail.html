@@ -43,7 +43,7 @@
                         <form id="like-dislike-form" method="post" style="display:none;">
                         {% csrf_token %}
                         </form>
-                        <span id="like-count-{{ post.id }}">{{ post.total_likes }}</span></p>
+                        
                         <p>Dislikes: <span id="dislike-count-{{ post.id }}">{{ post.total_dislikes }}</span></p>
                         <p>Likes: <span id="like-count-{{ post.id }}">{{ post.total_likes }}</span></p>
                         <button id="like-btn-{{ post.id }}" class="like-btn" data-post-id="{{ post.id }}">Like</button>
