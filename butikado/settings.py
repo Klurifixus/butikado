@@ -11,23 +11,24 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+import dj_database_url
 from pathlib import Path
-from .env import DEBUG, SECRET_KEY, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY#, STRIPE_WH_SECRET
+from dotenv import load_dotenv
+
+# Load environment variables from .env file for local development
+# This line can be omitted if you prefer to set environment variables in another way locally
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'earnsshopskater-b0a8c0e4297a.herokuapp.com']
 
 # Application definition
 
@@ -42,16 +43,14 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.amazon',
-    # 'allauth.socialaccount.providers.facebook',
-    # 'allauth.socialaccount.providers.linkedin',
     'home',
     'products',
     'bag',
     'checkout',
     'profiles',
-    'crispy_forms', # required by crispy_forms
-    'crispy_bootstrap4', # required by crispy_forms
+    'blog',
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'allauth.account.middleware.AccountMiddleware',
 ]
 
@@ -80,35 +80,53 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request', # required by allauth
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media', # required by crispy_forms
-                'bag.contexts.bag_contents', # required by bag
+                'django.template.context_processors.media',
+                'bag.contexts.bag_contents',
+                'profiles.context_processors.loyalty_program_status',
+                'blog.context_processors.latest_posts',
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
                 'crispy_forms.templatetags.crispy_forms_field',
-            ], # required by crispy_forms
+            ],
         },
     },
 ]
 
+# Authentication and Email Settings
+
+# Django Message Storage
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-
-AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Standard Django authentication
+    'allauth.account.auth_backends.AuthenticationBackend',  # Allauth authentication
+]
 
 SITE_ID = 1
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Email Configuration
+MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY')
+MAILGUN_DOMAIN = os.environ.get('MAILGUN_DOMAIN')
 
+EMAIL_BACKEND = 'butikado.utils.backends.MailgunEmailBackend'
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+try:
+    EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))  # Default to 587 if not set
+except ValueError:
+    EMAIL_PORT = 587
+
+EMAIL_PORT = 587
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True').lower() == 'true'
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False').lower() == 'true'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+# Allauth Account Settings
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
@@ -123,12 +141,21 @@ WSGI_APPLICATION = 'butikado.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# Database configuration
+IS_PRODUCTION = os.environ.get('DJANGO_PRODUCTION', 'False') == 'True'
+
+if IS_PRODUCTION:
+    DATABASES = {
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    # For SQLite:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -164,12 +191,19 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Simplifies the serving of static files (such as CSS, JavaScript, and images)
+# This tells WhiteNoise to use compressed and hashed versions of the static files if available
+# WhiteNoise will also cache them indefinitely
+WHITENOISE_USE_FINDERS = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -177,37 +211,35 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'default_cloud_name'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', 'default_api_key'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'default_api_secret'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 # Stripe
-FREE_DELIVERY_THRESHOLD = 50 #amount of dollar for free delivery
+FREE_DELIVERY_THRESHOLD = 50
 STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
-#STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
-DEFAULT_FROM_EMAIL = 'earnshop@example.com'
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', '')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# # # Provider specific settings
-# SOCIALACCOUNT_PROVIDERS = {
-#     'amazon': {
-#         'APP': {
-#             'client_id': '<amazon_client_id>',
-#             'secret': '<amazon_secret>',
-#             'key': ''
-#         }
-#     },
-#     'facebook': {
-#         'APP': {
-#             'client_id': '<facebook_client_id>',
-#             'secret': '<facebook_secret>',
-#             'key': ''
-#         }
-#     },
-#     'linkedin': {
-#         'APP': {
-#             'client_id': '<linkedin_client_id>',
-#             'secret': '<linkedin_secret>',
-#             'key': ''
-#         }
-#     }
-# }
+# Security settings
+if IS_PRODUCTION:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+else:
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+    SECURE_HSTS_SECONDS = 0
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+    SECURE_HSTS_PRELOAD = False

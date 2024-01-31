@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block page_header %}
     <div class="container header-container">
@@ -32,22 +33,69 @@
                             {{ field }}
                         {% endif %}
                     {% endfor %}
+
+                    <!-- Render the SizeFormSet -->
+                    <div class="sizes-formset">
+                        {{ form.size_formset.management_form }}
+                        {% for size_form in form.size_formset %}
+                            <div class="size-form">
+                                {% for field in size_form %}
+                                    {% if should_hide_field %}
+                                        <div class="d-none">{{ field }}</div>
+                                    {% else %}
+                                        {{ field.label_tag }} {{ field }}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
                     <div class="text-right">
                         <a class="btn btn-outline-black rounded-0" href="{% url 'products' %}">Cancel</a>
                         <button class="btn btn-black rounded-0" type="submit">Add Product</button>
+                        <button type="button" id="add-size-btn" class="btn btn-info rounded-0">Add More Sizes</button>
                     </div>
                 </form>
             </div>            
         </div>
     </div>
+    <hr>
+    <hr>
+    <hr>
+
 {% endblock %}
 
 {% block postloadjs %}
     {{ block.super }}
     <script type="text/javascript">
-        $('#new-image').change(function() {
-            var file = $('#new-image')[0].files[0];
-            $('#filename').text(`Image will be set to: ${file.name}`);
+        $(document).ready(function() {
+            $('#add-size-btn').click(function(e) {
+                e.preventDefault();
+                var totalForms = $('#id_sizes-TOTAL_FORMS');
+                var currentFormCount = parseInt(totalForms.val());
+                var formCopyTarget = $('.sizes-formset');
+                
+                // Clone the last size form
+                var newForm = $('.size-form:last').clone();
+
+                // Replace the form index in the form's input IDs and names
+                newForm.html(newForm.html().replace(/-\d+-/g, '-' + currentFormCount + '-'));
+                newForm.find(':input').each(function() {
+                    var name = $(this).attr('name').replace('-' + (currentFormCount - 1) + '-', '-' + currentFormCount + '-');
+                    $(this).attr('name', name);
+                    $(this).attr('id', 'id_' + name);
+                    $(this).val(''); // Clear the value in the cloned input
+                });
+
+                // Append the new form and update the total form count
+                formCopyTarget.append(newForm);
+                totalForms.val(currentFormCount + 1);
+            });
+
+            $('#new-image').change(function() {
+                var file = $('#new-image')[0].files[0];
+                $('#filename').text(`Image will be set to: ${file.name}`);
+            });
         });
     </script>
 {% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <br>
+        <br>
+        <h1 class="text-center mt-4 bg-white">Skater's Corner</h1>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row my-4">
+            {% for post in posts %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        {% if post.image %}
+                            <img class="card-img-top" src="{{ post.image.url }}" alt="{{ post.title }}">
+                        {% else %}
+                            <img class="card-img-top" src="{{ STATIC_URL }}default_skate_image.jpg" alt="{{ post.title }}">
+                        {% endif %}
+                        {% if post.youtube_video_url %}
+                            <!-- Embed YouTube Video -->
+                            <iframe width="560" height="315" src="{{ post.youtube_video_url }}" frameborder="0" allowfullscreen></iframe>
+                        {% elif post.uploaded_video %}
+                            <!-- Display Uploaded Video -->
+                            <video width="320" height="240" controls>
+                            <source src="{{ post.uploaded_video.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                            </video>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.summary }}</p>
+                            <a href="{% url 'blog:blog_detail' post.slug %}" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No skateboarding posts to display.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <!-- Any additional JavaScript -->
+{% endblock %}

@@ -2,18 +2,31 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpR
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
-
 from .forms import OrderForm
 from .models import Order, OrderLineItem
-
 from products.models import Product
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
 from bag.contexts import bag_contents
-
+from butikado.utils.mail_utils import send_mailgun_email
 import stripe
 import json
+import logging
 
+
+logger = logging.getLogger(__name__)
+
+# Helper function to calculate the discount
+def calculate_discount(order_total, is_eligible_for_discount):
+    """
+    Calculate the discount amount if the customer is eligible for a discount.
+    A 10% discount is applied if the order total is over $250 or if the customer
+    has previously made five purchases of $50 or more.
+    """
+    if order_total > 250 or is_eligible_for_discount:
+        return order_total * 0.10
+    else:
+        return 0
 
 @require_POST
 def cache_checkout_data(request):
@@ -27,6 +40,7 @@ def cache_checkout_data(request):
         })
         return HttpResponse(status=200)
     except Exception as e:
+        logger.error('Error in cache_checkout_data: ', exc_info=True)
         messages.error(request, 'Sorry, your payment cannot be \
             processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
@@ -56,8 +70,28 @@ def checkout(request):
             order = order_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
+
+            # LOYALTY DISCOUNT CHECK
+            discount_applied = False
+            if request.user.is_authenticated:
+                profile = UserProfile.objects.get(user=request.user)
+                discount = calculate_discount(order.order_total, profile.is_eligible_for_discount)
+                if profile.is_eligible_for_discount:
+                    order.order_total -= discount
+                    order.save()
+                    discount_applied = True
+                    profile.loyalty_purchase_count = 0
+                    profile.is_eligible_for_discount = False
+                    profile.save()
+                elif not discount_applied:
+                    profile.loyalty_purchase_count += 1
+                    if profile.loyalty_purchase_count >= 5:
+                        profile.is_eligible_for_discount = True
+                    profile.save()
+
             order.original_bag = json.dumps(bag)
             order.save()
+
             for item_id, item_data in bag.items():
                 try:
                     product = Product.objects.get(id=item_id)
@@ -85,7 +119,14 @@ def checkout(request):
                     order.delete()
                     return redirect(reverse('view_bag'))
 
-            # Save the info to the user's profile if all is well
+            # LOYALTY PURCHASE COUNT UPDATE
+            if request.user.is_authenticated and not discount_applied:
+                profile = UserProfile.objects.get(user=request.user)
+                profile.loyalty_purchase_count += 1
+                if profile.loyalty_purchase_count >= 5:  # Threshold for discount
+                    profile.is_eligible_for_discount = True
+                profile.save()
+
             request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
@@ -99,6 +140,7 @@ def checkout(request):
 
         current_bag = bag_contents(request)
         total = current_bag['grand_total']
+        discount = 0  # Initialize discount
         stripe_total = round(total * 100)
         stripe.api_key = stripe_secret_key
         intent = stripe.PaymentIntent.create(
@@ -149,11 +191,9 @@ def checkout_success(request, order_number):
 
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
-        # Attach the user's profile to the order
         order.user_profile = profile
         order.save()
 
-        # Save the user's info
         if save_info:
             profile_data = {
                 'default_phone_number': order.phone_number,
@@ -168,6 +208,17 @@ def checkout_success(request, order_number):
             if user_profile_form.is_valid():
                 user_profile_form.save()
 
+     # Email subject and body can be customized as needed
+    email_subject = "Thank you for your purchase!"
+    email_body = f"Your order details... Order number is {order_number}."
+
+    send_mailgun_email(
+        subject=email_subject,
+        message=email_body,
+        to_email=[order.email],
+        from_email=settings.DEFAULT_FROM_EMAIL
+    )            
+
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')
@@ -181,3 +232,4 @@ def checkout_success(request, order_number):
     }
 
     return render(request, template, context)
+
