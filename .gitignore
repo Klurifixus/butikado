@@ -7,6 +7,7 @@ __pycache__/
 node_modules/
 .github/
 cloudinary_python.txt
+<<<<<<< HEAD
 *.sqlite3
 *.pyc
 __pycache__
@@ -15,3 +16,6 @@ __pycache__
 /output/
 .sql
 info.txt
+
+=======
+>>>>>>> f031be9 (Initial commit)
