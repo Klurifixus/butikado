@@ -1,25 +1,15 @@
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.like-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            var postId = this.dataset.postId;
-            makeLikeDislikeRequest(postId, 'like');
-        });
-    });
-
-    document.querySelectorAll('.dislike-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            var postId = this.dataset.postId;
-            makeLikeDislikeRequest(postId, 'dislike');
-        });
-    });
-});
 
 function getCsrfToken() {
-    return document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    const csrfInput = document.querySelector('#like-dislike-form input[name="csrfmiddlewaretoken"]');
+    return csrfInput ? csrfInput.value : null;
 }
 
 function makeLikeDislikeRequest(postId, action) {
     const csrfToken = getCsrfToken();
+    if (!csrfToken) {
+        console.error('CSRF token not found.');
+        return;
+    }
     const url = new URL('/blog/like_dislike/', window.location.origin);
     fetch(url, {
         method: 'POST',
@@ -49,6 +39,23 @@ function makeLikeDislikeRequest(postId, action) {
         console.error('Error during fetch:', error);
     });
 }
+
+// Event listeners for the like and dislike buttons
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.like-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const postId = this.dataset.postId;
+            makeLikeDislikeRequest(postId, 'like');
+        });
+    });
+
+    document.querySelectorAll('.dislike-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const postId = this.dataset.postId;
+            makeLikeDislikeRequest(postId, 'dislike');
+        });
+    });
+});
 
 function getCookie(name) {
     let cookieValue = null;
