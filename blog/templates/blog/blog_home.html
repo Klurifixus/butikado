@@ -52,15 +52,6 @@
                                 <h5 class="card-title">{{ post.title }}</h5>
                                 <p class="card-text">{{ post.summary }}</p>
                             </div>
-                            <div class="card-footer">
-                                <form id="like-dislike-form" method="post" style="display:none;">
-                                    {% csrf_token %}
-                                </form>
-                                <button id="like-btn-{{ post.id }}" class="like-btn" data-post-id="{{ post.id }}">Like</button>
-                                <button id="dislike-btn-{{ post.id }}" class="dislike-btn" data-post-id="{{ post.id }}">Dislike</button>
-                                <span class="likes-count" id="likes-count-{{ post.id }}">{{ post.total_likes }}</span> Likes
-                                <span class="dislikes-count" id="dislikes-count-{{ post.id }}">{{ post.total_dislikes }}</span> Dislikes
-                            </div>
                     </div>
                 </div>
                     <!-- Responsive Breaks for Different Screen Sizes -->
@@ -98,21 +89,4 @@
 {% block postloadjs %}
     {{ block.super }}
     <script src="{% static 'js/like_dislike.js' %}" type="text/javascript"></script>    
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.like-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    var postId = this.dataset.postId;
-                    makeLikeDislikeRequest(postId, 'like');
-                });
-            });
-        
-            document.querySelectorAll('.dislike-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    var postId = this.dataset.postId;
-                    makeLikeDislikeRequest(postId, 'dislike');
-                });
-            });
-        });
-    </script>
 {% endblock %}
