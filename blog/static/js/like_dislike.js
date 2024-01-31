@@ -14,7 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+function getCsrfToken() {
+    return document.querySelector('[name=csrfmiddlewaretoken]').value;
+}
+
 function makeLikeDislikeRequest(postId, action) {
+    const csrfToken = getCsrfToken();
     const url = new URL('/blog/like_dislike/', window.location.origin);
     fetch(url, { 
         method: 'POST',
@@ -23,9 +28,10 @@ function makeLikeDislikeRequest(postId, action) {
             'action': action
         }),
         headers: {
-            'X-CSRFToken': getCookie('csrftoken'), // Function to get CSRF token from cookies
+            'X-CSRFToken': csrfToken,
             'Content-Type': 'application/json'
-        }
+        },
+        credentials: 'include'
     })
     .then(response => {
         if (!response.ok) {

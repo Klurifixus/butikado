@@ -102,7 +102,7 @@ def upload_image(request):
     # Handle other HTTP methods or no image uploaded
     return JsonResponse({'success': False, 'error_message': 'Invalid request'})
 
-
+@csrf_exempt
 def like_dislike(request):
     post_id = request.POST.get('postId')
     action = request.POST.get('action')
