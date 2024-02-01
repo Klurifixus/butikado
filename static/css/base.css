@@ -15,6 +15,10 @@ body {
     font-family: 'Dancing Script', cursive;
 }
 
+.bg-custom-blue {
+    background-color: #17a2b8 !important;
+}
+
 /* Base styles */
 .icon {
     height: 0.4rem;
@@ -31,7 +35,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-shadow: 2px 2px 4px rgba(255, 136, 0, 0.7);
+    text-shadow: 2px 2px 4px #fff;
     padding: 0.5rem;
 }
 

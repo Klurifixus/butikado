@@ -1,6 +1,6 @@
 {% if request.resolver_match.namespace == 'blog' %}
     <li class="list-inline-item dropdown d-block d-lg-none">
-        <a class="text-black nav-link p-2" href="{% url 'home' %}">
+        <a class="text-white nav-link p-2" href="{% url 'home' %}">
             <div class="text-center">
                 <i class="fas fa-tshirt"></i>
                 <p class="my-0">Shop</p>
@@ -9,7 +9,7 @@
     </li>
     {% else %}
         <li class="list-inline-item dropdown d-block d-lg-none">
-            <a class="text-black nav-link p-2" href="{% url 'blog:blog_home' %}">
+            <a class="text-white nav-link p-2" href="{% url 'blog:blog_home' %}">
                 <div class="text-center">
                     <i class="fas fa-blog"></i>
                     <p class="my-0">Blog</p>
@@ -19,7 +19,7 @@
     {% endif %}
 
 <li class="list-inline-item dropdown d-block d-lg-none">
-    <a class="text-black nav-link p-2" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a class="text-white nav-link p-2" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <div class="text-center">
             {% if request.user.is_authenticated %}
                 <i class="fas fa-crown logged-in-icon"></i>
