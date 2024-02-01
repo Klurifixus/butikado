@@ -638,7 +638,6 @@ input[name='q']::placeholder {
     /* Ensure each navigation item has equal space and is centered */
     .navbar-nav li {
         flex: 1;
-        text-align: center;
     }
       
       /* Show the dropdown menu when hovering over the dropdown item */
