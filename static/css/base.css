@@ -347,8 +347,9 @@ input[name='q']::placeholder {
     font-weight: 700;
 }
 
-.allauth-form-inner-content ul{
+.allauth-form-inner-content ul {
     color: #fff;
+    text-shadow: 4px 4px 4px #0a0a0a;
 }
 
 .allauth-form-inner-content input {
@@ -394,6 +395,7 @@ input[name='q']::placeholder {
 
 .allauth-form-inner-content label {
     color: #fafafa;
+    text-shadow: 4px 4px 4px #0a0a0a;
 }
 
 .allauth-form-inner-content label a{
