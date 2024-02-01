@@ -113,21 +113,16 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 # Email Configuration
-MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY')
-MAILGUN_DOMAIN = os.environ.get('MAILGUN_DOMAIN')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ.get('MAILERTOGO_SMTP_ADDRESS')
+EMAIL_PORT = os.environ.get('MAILERTOGO_SMTP_PORT')
+EMAIL_HOST_USER = os.environ.get('MAILERTOGO_SMTP_USER_NAME')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILERTOGO_SMTP_PASSWORD')
+EMAIL_USE_TLS = True  # or os.environ.get('MAILERTOGO_USE_TLS') if it's provided as a separate variable
 
-EMAIL_BACKEND = 'butikado.utils.backends.MailgunEmailBackend'
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-try:
-    EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))  # Default to 587 if not set
-except ValueError:
-    EMAIL_PORT = 587
-
-EMAIL_PORT = 587
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True').lower() == 'true'
-EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False').lower() == 'true'
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+# Optional settings
+DEFAULT_FROM_EMAIL = 'your-email@example.com'  # Replace with your email address
+SERVER_EMAIL = 'server-email@example.com'  # Rep
 
 # Allauth Account Settings
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'

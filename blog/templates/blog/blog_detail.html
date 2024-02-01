@@ -44,10 +44,10 @@
                         {% csrf_token %}
                         </form>
                         
-                        <p>Dislikes: <span id="dislike-count-{{ post.id }}">{{ post.total_dislikes }}</span></p>
+                        {% comment %} <p>Dislikes: <span id="dislike-count-{{ post.id }}">{{ post.total_dislikes }}</span></p>
                         <p>Likes: <span id="like-count-{{ post.id }}">{{ post.total_likes }}</span></p>
                         <button id="like-btn-{{ post.id }}" class="like-btn" data-post-id="{{ post.id }}">Like</button>
-                        <button id="dislike-btn-{{ post.id }}" class="dislike-btn" data-post-id="{{ post.id }}">Dislike</button>
+                        <button id="dislike-btn-{{ post.id }}" class="dislike-btn" data-post-id="{{ post.id }}">Dislike</button> {% endcomment %}
                     
 
 
