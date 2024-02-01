@@ -624,7 +624,8 @@ input[name='q']::placeholder {
     }
 
     .dropdown-menu{
-        margin: 0 auto;
+        flex: 1;
+        text-align: center;
     }
 
     /* Ensure the navbar items are properly aligned */
