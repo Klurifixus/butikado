@@ -118,7 +118,8 @@ EMAIL_HOST = os.environ.get('MAILERTOGO_SMTP_ADDRESS')
 EMAIL_PORT = os.environ.get('MAILERTOGO_SMTP_PORT')
 EMAIL_HOST_USER = os.environ.get('MAILERTOGO_SMTP_USER_NAME')
 EMAIL_HOST_PASSWORD = os.environ.get('MAILERTOGO_SMTP_PASSWORD')
-EMAIL_USE_TLS = True  # or os.environ.get('MAILERTOGO_USE_TLS') if it's provided as a separate variable
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 # Optional settings
 DEFAULT_FROM_EMAIL = 'your-email@example.com'  # Replace with your email address
