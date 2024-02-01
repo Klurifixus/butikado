@@ -59,7 +59,7 @@ body {
     display: inline-block;
 }
 .carousel-caption p{
-    background:rgba(204, 102, 0, 0.5);
+    background: rgb(204 102 0 / 81%);
     transition: background-color 0.3s, transform 0.3s;
     animation: pulse 2.5s infinite;
 }
