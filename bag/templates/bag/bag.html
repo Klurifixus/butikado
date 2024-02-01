@@ -25,29 +25,38 @@
             {% if bag_items %}
                 <div class="table-responsive rounded">
                <table class="table table-sm table-borderless">
-                   <thead class="text-black">
-                       <tr>
-                           <th scope="col">Product Info</th>
-                           <th scope="col"></th>
-                           <th scope="col">Price</th>
-                           <th scope="col">Qty</th>
-                           <th scope="col">Subtotal</th>
-                       </tr>
-                   </thead>
+                <thead>
+                    <tr class="bg-light">
+                        <th scope="col" class="border-0">
+                            <div class="p-2 px-3 text-uppercase">Product Info</div>
+                        </th>
+                        <th scope="col" class="border-0">
+                            <div class="py-2 text-uppercase">Price</div>
+                        </th>
+                        <th scope="col" class="border-0">
+                            <div class="py-2 text-uppercase">Quantity</div>
+                        </th>
+                        <th scope="col" class="border-0">
+                            <div class="py-2 text-uppercase">Subtotal</div>
+                        </th>
+                    </tr>
+                </thead>
                    {% for item in bag_items %}
                        <tr>
-                           <td class="align-middle">
-                               {% if item.product.image %}
-                               <img class="img-fluid rounded" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
-                               {% else %}
-                               <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
-                               {% endif %}
-                           </td>
-                           <td class="align-middle">
-                               <p class="my-0"><strong>{{ item.product.name }}</strong></p>
-                               <p class="my-0"><strong>Size: </strong>{% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
-                               <p class="my-0 small text-muted">SKU: {{ item.product.sku|upper }}</p>
-                           </td>
+                           <th class="align-middle">
+                               <div class="p-2">
+                                   {% if item.product.image %}
+                                   <img class="img-fluid rounded" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                   {% else %}
+                                   <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
+                                   {% endif %}
+                               </div>
+                           </th>
+                           <!--<td class="align-middle"> -->
+                               <td class="align-middle"><strong>{{ item.product.name }}</strong></td>
+                               <td class="align-middle"><strong>Size: </strong>{% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</td>
+                               <td class="align-middle" small text-muted">SKU: {{ item.product.sku|upper }}</td>
+                           <!--</td> -->
                            <td class="align-middle">
                                <p class="my-0">${{ item.product.price }}</p>
                            </td>
