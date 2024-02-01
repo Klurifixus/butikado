@@ -448,6 +448,9 @@ input[name='q']::placeholder {
     }
   }
 
+  .permanent-marker-text {
+    font-family: 'Permanent Marker', cursive;
+}
 
 /* Media Queries */
 @media (max-width: 575px) {
