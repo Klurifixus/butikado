@@ -59,7 +59,7 @@ body {
     display: inline-block;
 }
 .carousel-caption p{
-    background: rgb(204 102 0 / 81%);
+    background: rgb(0 104 255 / 70%);
     transition: background-color 0.3s, transform 0.3s;
     animation: pulse 2.5s infinite;
 }
@@ -146,7 +146,7 @@ body {
     flex-grow: 1 !important;
 }
 .shop-now-button {
-    background: rgba(255, 136, 0, 0.7);
+    background: rgb(0 104 255 / 70%);
     color: #fff;
     border: none;
     border-radius: 5px !important;
