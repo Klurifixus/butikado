@@ -25,8 +25,8 @@
                 <div class="row">
                     <div class="col">
                         {% if bag_items %}
-                            <div class="table-responsive rounded">
-                                <table class="table table-sm table-borderless">
+                            <div class=" rounded">
+                                <table class=" table-responsive table table-sm table-borderless">
                                     <thead>
                                         <tr class="bg-light">
                                             <th scope="col" class="border-0 bg-light">
@@ -52,7 +52,9 @@
                                                     {% else %}
                                                     <img width="70" class="img-fluid rounded shadow-sm" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
                                                     {% endif %}
-                                                    <div class="text-dark d-inline-block align-middle"><strong>{{ item.product.name }}</strong></div>
+                                                    <div class="text-dark d-inline-block align-middle">
+                                                        <p class="text-dark d-inline-block"><strong>{{ item.product.name }}</strong></div>
+                                                    </div>
                                                 </div>
                                             </th>
                                             <td class="align-middle">{% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</td>
