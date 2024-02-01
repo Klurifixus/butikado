@@ -623,8 +623,12 @@ input[name='q']::placeholder {
         display: block; /* Show on hover */
     }
 
+    .dropdown-menu{
+        margin: 0 auto;
+    }
+
     /* Ensure the navbar items are properly aligned */
-    .navbar-nav .dropdown-menu {
+    .navbar-nav {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
