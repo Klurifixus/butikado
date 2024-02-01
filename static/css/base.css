@@ -605,24 +605,42 @@ input[name='q']::placeholder {
 }
 
 @media (min-width: 992px) {
-    .nav-item .dropdown-menu a {
-        display: block;
-        padding: 10px 15px;
-        margin: 5px 0;
+    .nav-item.dropdown {
+        position: relative;
+      }
+      
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        margin-top: 0.5rem;
+        padding: 0;
         background-color: #f8f9fa;
         border: 1px solid #ddd;
         border-radius: 5px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      }
+      
+      /* Style for each dropdown item */
+      .nav-item .dropdown-menu a {
+        display: block;
+        padding: 10px 15px;
+        margin: 0;
         text-align: center;
         transition: background-color 0.3s, color 0.3s;
-    }
-    
-    .nav-item .dropdown-menu a:hover {
+      }
+      
+      /* Hover effect for dropdown items */
+      .nav-item .dropdown-menu a:hover {
         background-color: #007bff;
         color: white;
         cursor: pointer;
-    }
-
-    .navbar-nav {
+      }
+      
+      /* Flexbox settings for navbar */
+      .navbar-nav {
         display: flex !important;
         justify-content: space-evenly !important;
         align-items: center !important;
@@ -631,7 +649,11 @@ input[name='q']::placeholder {
       .navbar-nav li {
         flex: 1 !important;
         text-align: center !important;
-        
+      }
+      
+      /* Show the dropdown menu when hovering over the dropdown item */
+      .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
       }
     
     .fixed-top-desktop-only {
