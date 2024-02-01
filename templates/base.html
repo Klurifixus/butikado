@@ -205,20 +205,49 @@
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Function to recursively replace $ with a span
-        function replaceDollarSigns(node) {
-            if (node.nodeType === 3) { // Text node
-                node.nodeValue = node.nodeValue.replace(/\$/g, '<span class="special-font">$</span>');
-            } else if (node.nodeType === 1) { // Element node
-                node.childNodes.forEach(replaceDollarSigns);
-            }
+        // Function to create a span element for the $ sign
+        function createSpecialFontSpan(dollarSign) {
+          const span = document.createElement('span');
+          span.className = 'special-font';
+          span.textContent = dollarSign;
+          return span;
         }
-
-        // Replace $ signs in the specified elements
-        document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, td, caption, span, a, div').forEach(el => {
-            replaceDollarSigns(el);
-        });
-    });
+      
+        // Function to recursively replace $ signs in text nodes
+        function replaceDollarSigns(node) {
+          if (node.nodeType === 3) { // Text node
+            const text = node.nodeValue;
+            const parent = node.parentNode;
+            const regex = /\$/g;
+      
+            let lastIndex = 0;
+            let result;
+      
+            while ((result = regex.exec(text)) !== null) {
+              // Text before the $
+              const before = document.createTextNode(text.substring(lastIndex, result.index));
+              parent.insertBefore(before, node);
+      
+              // The $ span
+              const dollarSpan = createSpecialFontSpan(result[0]);
+              parent.insertBefore(dollarSpan, node);
+      
+              lastIndex = regex.lastIndex;
+            }
+      
+            // Text after the last $
+            const after = document.createTextNode(text.substring(lastIndex));
+            parent.insertBefore(after, node);
+      
+            parent.removeChild(node);
+          } else if (node.nodeType === 1 && node.tagName.toLowerCase() !== 'script' && node.tagName.toLowerCase() !== 'style') { // Element node
+            Array.from(node.childNodes).forEach(replaceDollarSigns);
+          }
+        }
+      
+        // Start replacing $ signs
+        document.querySelectorAll('body *:not(script):not(style)').forEach(replaceDollarSigns);
+      });
 </script>
 {% endblock %}
 
