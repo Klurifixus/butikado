@@ -11,6 +11,10 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
+.special-font {
+    font-family: 'Dancing Script', cursive;
+}
+
 /* Base styles */
 .icon {
     height: 0.4rem;

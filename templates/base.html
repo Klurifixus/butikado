@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neucha|Cabin+Sketch&display=swap">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% endblock %}
 
@@ -202,7 +203,23 @@
 <script type="text/javascript">
     $('.toast').toast('show');
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Function to recursively replace $ with a span
+        function replaceDollarSigns(node) {
+            if (node.nodeType === 3) { // Text node
+                node.nodeValue = node.nodeValue.replace(/\$/g, '<span class="special-font">$</span>');
+            } else if (node.nodeType === 1) { // Element node
+                node.childNodes.forEach(replaceDollarSigns);
+            }
+        }
 
+        // Replace $ signs in the specified elements
+        document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, td, caption, span, a, div').forEach(el => {
+            replaceDollarSigns(el);
+        });
+    });
+</script>
 {% endblock %}
 
 </body>
