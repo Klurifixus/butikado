@@ -48,9 +48,9 @@
                                             <th scope="row" class="border-0">
                                                 <div class="p-2">
                                                     {% if item.product.image %}
-                                                    <img class="img-fluid rounded" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                                    <img width="70" class="img-fluid rounded shadow-sm" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                                                     {% else %}
-                                                    <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
+                                                    <img width="70" class="img-fluid rounded shadow-sm" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
                                                     {% endif %}
                                                     <div class="text-dark d-inline-block align-middle"><strong>{{ item.product.name }}</strong></div>
                                                 </div>
