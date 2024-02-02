@@ -670,9 +670,9 @@ input[name='q']::placeholder {
     }
       
       /* Show the dropdown menu when hovering over the dropdown item */
-      /* .nav-item:hover .dropdown:hover .dropdown-menu {
+       .nav-item:hover .dropdown:hover .dropdown-menu {
         display: block;
-      } */
+      } 
     
     .fixed-top-desktop-only {
         position: fixed;
