@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
 from django.contrib import messages
-
+from django.http import JsonResponse
 from products.models import Product
 
 # Create your views here.
@@ -46,7 +46,6 @@ def add_to_bag(request, item_id):
 
 def adjust_bag(request, item_id):
     """Adjust the quantity of the specified product to the specified amount"""
-
     product = get_object_or_404(Product, pk=item_id)
     quantity = int(request.POST.get('quantity'))
     size = None
@@ -56,23 +55,36 @@ def adjust_bag(request, item_id):
 
     if size:
         if quantity > 0:
+            bag[item_id]['items_by_size'].setdefault(size, 0)
             bag[item_id]['items_by_size'][size] = quantity
-            messages.success(request, f'Updated size {size.upper()} {product.name} quantity to {bag[item_id]["items_by_size"][size]}')
+            success_message = f'Updated size {size.upper()} {product.name} quantity to {bag[item_id]["items_by_size"][size]}'
         else:
             del bag[item_id]['items_by_size'][size]
             if not bag[item_id]['items_by_size']:
                 bag.pop(item_id)
-            messages.success(request, f'Removed size {size.upper()} {product.name} from your bag')
+            success_message = f'Removed size {size.upper()} {product.name} from your bag'
     else:
         if quantity > 0:
             bag[item_id] = quantity
-            messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
+            success_message = f'Updated {product.name} quantity to {bag[item_id]}'
         else:
             bag.pop(item_id)
-            messages.success(request, f'Removed {product.name} from your bag')
+            success_message = f'Removed {product.name} from your bag'
 
     request.session['bag'] = bag
-    return redirect(reverse('view_bag'))
+    request.session.modified = True  # Ensure the session is saved
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        # Handle AJAX request: return JSON response
+        return JsonResponse({
+            'success': True,
+            'message': success_message,
+            # Add any additional data needed for frontend updates here
+        })
+    else:
+        # Handle non-AJAX request: set message and redirect
+        messages.success(request, success_message)
+        return redirect(reverse('view_bag'))
 
 
 def remove_from_bag(request, item_id):
