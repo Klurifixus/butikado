@@ -452,10 +452,6 @@ input[name='q']::placeholder {
     font-family: 'Permanent Marker', cursive;
 }
 
-.text-size {
-    text-transform: lowercase;
-}
-
 
 
 /* Media Queries */
@@ -496,7 +492,8 @@ input[name='q']::placeholder {
     }
 
     .text-size {
-        font-size: 1rem;
+        font-size: 0.6rem;
+        letter-spacing: 1.2px;
     }
 }
 
