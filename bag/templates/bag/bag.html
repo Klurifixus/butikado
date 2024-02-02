@@ -41,7 +41,12 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <td class="text-size align-middle">{% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</td>
+                                        <td>
+                                            <p class="text-size align-middle">{% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
+                                        </td>
+                                        <td class="d-none text-size align-middle">
+                                            <p class="my-0">${{ item.product.price }}</p>
+                                        </td>
                                         <td class="align-middle">
                                             <form class="form update-form form-width" method="POST" action="{% url 'adjust_bag' item.item_id %}">
                                                 {% csrf_token %}
