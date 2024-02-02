@@ -144,26 +144,55 @@
 {% block postloadjs %}
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
-
 <script type="text/javascript">
-    // Update quantity on click
-    $('.update-link').click(function(e) {
-        var form = $(this).prev('.update-form');
-        form.submit();
-    })
-
-    // Remove item and reload on click
-    $('.remove-item').click(function(e) {
-        var csrfToken = "{{ csrf_token }}";
-        var itemId = $(this).attr('id').split('remove_')[1];
-        var size = $(this).data('product_size');
-        var url = `/bag/remove/${itemId}/`;
-        var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': size};
-
-        $.post(url, data)
-         .done(function() {
-             location.reload();
-         });
-    })
-</script>
-{% endblock %} 
+    $(document).ready(function() {
+        // Update subtotal and total when quantity changes
+        function updateSubtotal(item_id, quantity) {
+            var pricePerItem = parseFloat($(`#price_${item_id}`).text()); // Ensure you define how price is stored and accessed
+            var newSubtotal = pricePerItem * quantity;
+            $(`#subtotal_${item_id}`).text('$' + newSubtotal.toFixed(2)); // Update the displayed subtotal for this item
+            updateTotal(); // Recalculate and update the total
+        }
+    
+        function updateTotal() {
+            var total = 0;
+            $('.subtotal').each(function() {
+                total += parseFloat($(this).text().substring(1)); // Assuming subtotal text is in format "$x.xx"
+            });
+            $('#total').text('$' + total.toFixed(2)); // Update the total display
+            // Optionally update other totals (e.g., grand total, delivery) here
+        }
+    
+        // Handle increment/decrement buttons
+        $('.increment-qty, .decrement-qty').click(function(e) {
+            e.preventDefault();
+            var itemId = $(this).data('item_id');
+            var inputQty = $(`#id_qty_${itemId}`);
+            var currentQty = parseInt(inputQty.val());
+            var newQty = $(this).hasClass('increment-qty') ? currentQty + 1 : currentQty - 1;
+            inputQty.val(newQty).change(); // Trigger change event to update subtotal
+        });
+    
+        // Listen for changes in quantity input
+        $('.qty_input').change(function() {
+            var item_id = $(this).data('item_id');
+            var quantity = parseInt($(this).val());
+            updateSubtotal(item_id, quantity);
+        });
+    
+        // Remove item and refresh
+        $('.remove-item').click(function(e) {
+            e.preventDefault();
+            var csrfToken = "{{ csrf_token }}";
+            var itemId = $(this).attr('id').split('remove_')[1];
+            var size = $(this).data('product_size');
+            var url = `/bag/remove/${itemId}/`;
+            var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': size};
+    
+            $.post(url, data).done(function() {
+                location.reload();
+            });
+        });
+    });
+    </script>
+    {% endblock %}
