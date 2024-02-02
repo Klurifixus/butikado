@@ -30,24 +30,24 @@
                                     {% for item in bag_items %}
                                     <tr>
                                         <th scope="row" class="border-0">
-                                            <div class="max-width-product p-2">
+                                            <div class="max-width-product p-3">
                                                 {% if item.product.image %}
                                                 <img width="70" class="img-fluid rounded shadow-sm" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                                                 {% else %}
                                                 <img width="70" class="img-fluid rounded shadow-sm" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
                                                 {% endif %}
-                                                <div class="text-dark d-inline-block align-middle">
-                                                    <p class="text-dark d-inline-block"><strong>{{ item.product.name }}</strong></div>
+                                                <div class="text-dark d-inline-block py-3">
+                                                    <p class="text-dark d-inline-block my-0"><strong>{{ item.product.name }}</strong></div>
                                                 </div>
                                             </div>
                                         </th>
-                                        <td>
-                                            <p class="text-size align-middle">{% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
+                                        <td class="py-3">
+                                            <p class="text-size align-middle my-0">{% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
                                         </td>
                                         <td class="d-none text-size align-middle">
                                             <p class="my-0">${{ item.product.price }}</p>
                                         </td>
-                                        <td class="align-middle">
+                                        <td class="py-3">
                                             <form class="form update-form form-width" method="POST" action="{% url 'adjust_bag' item.item_id %}">
                                                 {% csrf_token %}
                                                 <div class="form-group">
@@ -86,7 +86,7 @@
                                                 <i class="fas fa-trash-alt fa-sm"></i>
                                             </a>
                                         </td>
-                                        <td class="align-middle">
+                                        <td class="py-3">
                                             <p class="my-0">${{ item.product.price | calc_subtotal:item.quantity }}</p>
                                         </td>
                                     </tr>
