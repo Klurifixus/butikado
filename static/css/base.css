@@ -651,7 +651,7 @@ input[name='q']::placeholder {
         padding: 0;
     }
 
-    .nav-item.dropdown:hover .dropdown-menu {
+    .nav-item .dropdown:hover .dropdown-menu {
         display: block; /* Show on hover */
     }
 
