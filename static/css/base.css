@@ -455,9 +455,13 @@ input[name='q']::placeholder {
 .btn-decoration {
     background-color: transparent;
     color: #17a2b8;
-    box-shadow: inset 0rem 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0.03rem 0.1rem 0.11rem 0.11rem rgba(0, 0, 0, 0.2);
     border: none;
 
+}
+
+.form-width {
+    min-width: 1.4rem;
 }
 
 .checkout-text {
