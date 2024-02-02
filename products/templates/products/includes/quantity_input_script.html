@@ -1,71 +1,44 @@
 <script type="text/javascript">
-    $(document).ready(function() {
-        function handleEnableDisable(itemId) {
-            var currentValue = parseInt($(`#id_qty_${itemId}`).val());
-            var minusDisabled = currentValue < 2;
-            var plusDisabled = currentValue > 98;
-            $(`#decrement-qty_${itemId}`).prop('disabled', minusDisabled);
-            $(`#increment-qty_${itemId}`).prop('disabled', plusDisabled);
-        }
 
-        // Ensure proper enabling/disabling of all inputs on page load
-        var allQtyInputs = $('.qty_input');
-        for(var i = 0; i < allQtyInputs.length; i++){
-            var itemId = $(allQtyInputs[i]).data('item_id');
-            handleEnableDisable(itemId);
-        }
+    // Disable +/- buttons outside 1-99 range
+    function handleEnableDisable(itemId) {
+        var currentValue = parseInt($(`#id_qty_${itemId}`).val());
+        var minusDisabled = currentValue < 2;
+        var plusDisabled = currentValue > 98;
+        $(`#decrement-qty_${itemId}`).prop('disabled', minusDisabled);
+        $(`#increment-qty_${itemId}`).prop('disabled', plusDisabled);
+    }
 
-        $('.qty_input').each(function() {
-            var itemId = $(this).data('item_id');
-            handleEnableDisable(itemId);
-        });
-    
-        $('.qty_input').change(function() {
-            var itemId = $(this).data('item_id');
-            handleEnableDisable(itemId);
-        });
-    
-        function ajaxUpdateItemQty(itemId, newQuantity) {
-            $.ajax({
-                url: '{% url "adjust_bag" %}',
-                method: 'POST',
-                data: {
-                    csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
-                    item_id: itemId,
-                    quantity: newQuantity,
-                },
-                success: function(response) {
-                    if(response.success) {
-                        // Update UI based on response
-                        $(`#subtotal_${itemId}`).text('$' + response.new_subtotal);
-                        $('#total').text('$' + response.new_total);
-                        console.log(response.message);
-                    }
-                },
-                error: function(xhr, errmsg, err) {
-                    console.log("Error updating item quantity: ", errmsg);
-                }
-            });
-        }
-    
-        $('.increment-qty').click(function(e) {
-            e.preventDefault();
-            var itemId = $(this).data('item_id');
-            var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
-            var newQuantity = parseInt($(closestInput).val()) + 1;
-            $(closestInput).val(newQuantity);
-            ajaxUpdateItemQty(itemId, newQuantity);
-            handleEnableDisable(itemId);
-        });
-    
-        $('.decrement-qty').click(function(e) {
-            e.preventDefault();
-            var itemId = $(this).data('item_id');
-            var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
-            var newQuantity = parseInt($(closestInput).val()) - 1;
-            $(closestInput).val(newQuantity);
-            ajaxUpdateItemQty(itemId, newQuantity);
-            handleEnableDisable(itemId);
-        });
+    // Ensure proper enabling/disabling of all inputs on page load
+    var allQtyInputs = $('.qty_input');
+    for(var i = 0; i < allQtyInputs.length; i++){
+        var itemId = $(allQtyInputs[i]).data('item_id');
+        handleEnableDisable(itemId);
+    }
+
+    // Check enable/disable every time the input is changed
+    $('.qty_input').change(function() {
+        var itemId = $(this).data('item_id');
+        handleEnableDisable(itemId);
     });
-    </script>
+
+    // Increment quantity
+    $('.increment-qty').click(function(e) {
+       e.preventDefault();
+       var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+       var currentValue = parseInt($(closestInput).val());
+       $(closestInput).val(currentValue + 1);
+       var itemId = $(this).data('item_id');
+       handleEnableDisable(itemId);
+    });
+
+    // Decrement quantity
+    $('.decrement-qty').click(function(e) {
+       e.preventDefault();
+       var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+       var currentValue = parseInt($(closestInput).val());
+       $(closestInput).val(currentValue - 1);
+       var itemId = $(this).data('item_id');
+       handleEnableDisable(itemId);
+    });
+</script>

@@ -145,37 +145,16 @@
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
 
-<script type="text/javascript">
-    $('.update-link').click(function(e) {
-        e.preventDefault();
-    
-        var form = $(this).closest('form');
-        var itemId = form.find('input[name="item_id"]').val();
-        var quantity = form.find('.qty_input').val();
-        var productSize = form.find('input[name="product_size"]').val();
-    
-        $.ajax({
-            url: form.attr('action'),
-            method: 'POST',
-            data: {
-                'csrfmiddlewaretoken': form.find('[name="csrfmiddlewaretoken"]').val(),
-                'item_id': itemId,
-                'quantity': quantity,
-                'product_size': productSize,
-            },
-            success: function(response) {
-                // Handle successful response
-                if(response.success) {
+{% block postloadjs %}
+{{ block.super }}
+{% include 'products/includes/quantity_input_script.html' %}
 
-                    alert(response.message);
-                }
-            },
-            error: function(xhr, errmsg, err) {
-                // Handle error
-                alert('Error updating quantity.');
-            }
-        });
-    });
+<script type="text/javascript">
+    // Update quantity on click
+    $('.update-link').click(function(e) {
+        var form = $(this).prev('.update-form');
+        form.submit();
+    })
 
     // Remove item and reload on click
     $('.remove-item').click(function(e) {
@@ -191,4 +170,4 @@
          });
     })
 </script>
-    {% endblock %}
+{% endblock %}
