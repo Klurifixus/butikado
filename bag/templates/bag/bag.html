@@ -27,26 +27,10 @@
                         {% if bag_items %}
                             <div class=" rounded">
                                 <table class=" table-responsive table table-sm table-borderless">
-                                    <thead>
-                                        <tr class="d-none d-md-block bg-light">
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="p-2 px-3 text-uppercase">Product</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Size</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Quantity</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Subtotal</div>
-                                            </th>
-                                        </tr>
-                                    </thead>
                                     {% for item in bag_items %}
                                         <tr>
                                             <th scope="row" class="border-0">
-                                                <div class="p-2">
+                                                <div class="max-width-product p-2">
                                                     {% if item.product.image %}
                                                     <img width="70" class="img-fluid rounded shadow-sm" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                                                     {% else %}
