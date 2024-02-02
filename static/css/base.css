@@ -476,6 +476,7 @@ input[name='q']::placeholder {
 
     .nav-link {
         padding: 0.25rem;
+        color: white;
     }
 
     #topnav .col-12 {
@@ -514,6 +515,7 @@ input[name='q']::placeholder {
 
     .nav-link {
         padding: 0.5rem;
+        color: white;
     }
 
     #topnav .col-12 {
