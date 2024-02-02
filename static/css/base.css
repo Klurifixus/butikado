@@ -452,6 +452,10 @@ input[name='q']::placeholder {
     font-family: 'Permanent Marker', cursive;
 }
 
+.text-size {
+    text-transform: lowercase;
+}
+
 
 
 /* Media Queries */
