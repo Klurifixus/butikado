@@ -47,26 +47,26 @@
                                                 {% csrf_token %}
                                                 <div class="form-group">
                                                     <div class="input-group">
-                                                         <div class="input-group-append">
-                                                             <button class="d-none d-md-block increment-qty btn btn-sm btn-black rounded-0"
-                                                                 data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}">
-                                                                 <span>
-                                                                     <i class="fas fa-plus fa-sm"></i>
-                                                                 </span>
-                                                             </button>
-                                                         </div>
+                                                        <div class="input-group-append">
+                                                            <button class="d-none d-md-block increment-qty btn btn-sm btn-black rounded-0"
+                                                                data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}">
+                                                                <span>
+                                                                    <i class="fas fa-plus fa-sm"></i>
+                                                                </span>
+                                                            </button>
+                                                        </div>
                                                         <input class="form-control form-control-sm qty_input" type="number"
                                                             name="quantity" value="{{ item.quantity }}" min="1" max="99"
                                                             data-item_id="{{ item.item_id }}"
                                                             id="id_qty_{{ item.item_id }}">
-                                                         <div class="input-group-prepend">
-                                                             <button class=" d-none d-md-block decrement-qty btn btn-sm btn-black rounded-0" 
-                                                                 data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
-                                                                 <span>
-                                                                     <i class="fas fa-minus fa-sm"></i>
-                                                                 </span>
-                                                             </button>
-                                                         </div>
+                                                        <div class="input-group-prepend">
+                                                            <button class=" d-none d-md-block decrement-qty btn btn-sm btn-black rounded-0" 
+                                                                data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
+                                                                <span>
+                                                                    <i class="fas fa-minus fa-sm"></i>
+                                                                </span>
+                                                            </button>
+                                                        </div>
                                                      
                                                         {% if item.product.has_sizes %}
                                                             <input type="hidden" name="product_size" value="{{ item.size }}">
@@ -76,7 +76,7 @@
                                             </form>
                                         </td>    
                                         <td class="align-middle">
-                                            <a class="btn btn-info update-link btn-decoration" href="#">
+                                            <a class="update-link btn btn-info btn-decoration" href="#">
                                                 <i class="fas fa-sync-alt fa-sm"></i>
                                             </a>
                                             <a class="btn btn-danger remove-item btn-decoration" id="remove_{{ item.item_id }}" data-product_size="{{ item.size }}" href="#">
@@ -146,11 +146,36 @@
 {% include 'products/includes/quantity_input_script.html' %}
 
 <script type="text/javascript">
-    // Update quantity on click
     $('.update-link').click(function(e) {
-        var form = $(this).prev('.update-form');
-        form.submit();
-    })
+        e.preventDefault();
+    
+        var form = $(this).closest('form');
+        var itemId = form.find('input[name="item_id"]').val();
+        var quantity = form.find('.qty_input').val();
+        var productSize = form.find('input[name="product_size"]').val();
+    
+        $.ajax({
+            url: form.attr('action'),
+            method: 'POST',
+            data: {
+                'csrfmiddlewaretoken': form.find('[name="csrfmiddlewaretoken"]').val(),
+                'item_id': itemId,
+                'quantity': quantity,
+                'product_size': productSize,
+            },
+            success: function(response) {
+                // Handle successful response
+                if(response.success) {
+
+                    alert(response.message);
+                }
+            },
+            error: function(xhr, errmsg, err) {
+                // Handle error
+                alert('Error updating quantity.');
+            }
+        });
+    });
 
     // Remove item and reload on click
     $('.remove-item').click(function(e) {
