@@ -448,9 +448,11 @@ input[name='q']::placeholder {
     }
   }
 
-  .permanent-marker-text {
+.permanent-marker-text {
     font-family: 'Permanent Marker', cursive;
 }
+
+
 
 /* Media Queries */
 @media (max-width: 575px) {
@@ -486,6 +488,10 @@ input[name='q']::placeholder {
     }
 
     .deli-font {
+        font-size: 1rem;
+    }
+
+    .text-size {
         font-size: 1rem;
     }
 }
