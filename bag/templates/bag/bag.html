@@ -12,7 +12,7 @@
 
 {% block content %}
     <div class="overlay"></div>
-    <div class="container mb-5 bg-white">
+    <div class="container mb-2">
         <div class="row">
             <div class="col">
                 <hr>
@@ -84,11 +84,8 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <div class="d-flex flex-column">
-                                            <a href="#" class="update-link text-info mb-2"><small>Update</small></a>
-                                            <a href="#" class="remove-item text-danger" id="remove_{{ item.item_id }}" data-product_size="{{ item.size }}"><small>Remove</small></a>
-                                        </div>
-                                        
+                                        <a class="update-link text-info"><small>Update</small></a>
+                                        <a class="remove-item text-danger float-right" id="remove_{{ item.item_id }}" data-product_size="{{ item.size }}"><small>Remove</small></a>
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0">${{ item.product.price | calc_subtotal:item.quantity }}</p>
@@ -131,7 +128,7 @@
                         <span class="icon">
                             <i class="fas fa-chevron-left"></i>
                         </span>
-                        <span class="text-uppercase mb-5">Keep Shopping</span>
+                        <span class="text-uppercase">Keep Shopping</span>
                     </a>
                 {% endif %}
             </div>
