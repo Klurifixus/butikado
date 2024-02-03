@@ -651,9 +651,6 @@ input[name='q']::placeholder {
         padding: 0;
     }
 
-    .nav-item.dropdown:hover .dropdown-menu {
-        display: block; /* Show on hover */
-    }
 
     .dropdown-menu{
         flex: 1;
@@ -673,9 +670,9 @@ input[name='q']::placeholder {
     }
       
       /* Show the dropdown menu when hovering over the dropdown item */
-      .nav-item.dropdown:hover .dropdown-menu {
+       .nav-item.dropdown:hover .dropdown-menu {
         display: block;
-      }
+      } 
     
     .fixed-top-desktop-only {
         position: fixed;
