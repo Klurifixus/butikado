@@ -657,6 +657,15 @@ input[name='q']::placeholder {
     #all-products-link {
         padding-bottom: 0px !important;
     }
+
+    #clothing-link {
+        padding-bottom: 0px !important;
+    }
+
+    #homeware-link{
+        padding-bottom: 0px !important;
+    }
+    
     .dropdown-menu{
         flex: 1;
         text-align: center;
