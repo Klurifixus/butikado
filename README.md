@@ -1,110 +1,150 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Earn-Shop: Hip-Hop Clothing E-commerce Platform
 
-Welcome USER_NAME,
+Welcome to Earn-Shop, the ultimate online destination for men's hip-hop clothing and accessories inspired by the vibrant styles of the '90s. Our platform caters to enthusiasts of skate, hip-hop, reggae, and the iconic '90s hip-hop fashion scene. Earn-Shop is built with dedication to offer a seamless shopping experience, featuring a curated collection of garments that embody the spirit of hip-hop culture.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+## Features
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+- **Wide Selection of Products**: From urban T-shirts and hoodies to accessories, find exclusive items that resonate with the hip-hop and skate culture.
+- **Secure Payment Gateway**: Integrated Stripe payment for a smooth and secure checkout process.
+- **User Accounts**: Powered by Django's allauth, offering user authentication, registration, and account management.
+- **Email Confirmation**: Utilizing Mailgun for order confirmation and communication.
+- **Enhanced SEO**: Google Tag Manager (GTM) integration and a dedicated blog section to boost search engine visibility through engaging content.
+- **Responsive Design**: Crafted with mobile and desktop users in mind, ensuring a great shopping experience on any device.
 
-## Gitpod Reminders
+## Built With
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+- **Front-end**: HTML5, CSS3 with custom styles, Bootstrap 4 for responsive design, JavaScript for interactive elements.
+- **Back-end**: Django 4.2 for robust back-end capabilities.
+- **Database**: SQLite for development and PostgreSQL for production.
+- **Payment Processing**: Stripe to handle financial transactions securely.
+- **User Authentication**: Django Allauth for user management.
+- **Email Delivery**: Mailgun for sending confirmation emails.
+- **Media Storage**: Cloudinary for storing and managing media files efficiently.
+- **SEO Optimization**: Google Tag Manager for SEO and tracking analytics.
 
-`python3 -m http.server`
+## Design
 
-A blue button should appear to click: _Make Public_,
+### Color Theme
 
-Another blue button should appear to click: _Open Browser_.
+Include a section on the primary, secondary, and accent colors used in the site, with examples of their use and color codes.
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+### Wireframes
 
-A blue button should appear to click: _Make Public_,
+Add a section that includes wireframes for different pages of the application, for both mobile and desktop versions.
 
-Another blue button should appear to click: _Open Browser_.
+### Flowchart
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+Provide a flowchart that outlines the user flow through the application, from the landing page to completing a purchase.
 
-To log into the Heroku toolbelt CLI:
+## Responsive Design
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+Include a section that demonstrates the responsive nature of the website. Show how the site adapts to different screen sizes, possibly with screenshots from the "Am I Responsive" website.
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+## Getting Started
 
-------
+To get a local copy up and running follow these simple steps.
 
-## Release History
+### Prerequisites
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+- Python 3.8 or later
+- pip
+- A Mailgun account for email services
+- A Stripe account for payment processing
+- A Cloudinary account for media storage
 
-**September 20 2023:** Update Python version to 3.9.17.
+### Installation
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+1. **Clone the repository**
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+   ```bash
+    git clone https://github.com/Klurifixus/butikado.git
+    cd earn-shop
+    ```
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+2. **Set up a virtual environment**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+3. **Install dependencies**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+4. **Set up environment variables**
+   Create a .env file in the root directory and populate it with the necessary API keys and secrets as shown in the settings.py file.
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+5. **Run migrations to set up the database**
+    ```bash
+    python manage.py migrate # Navigate to http://localhost:8000 to view the app.
+    ```
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+### Setting Up Your Development Environment
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+## Stripe Integration
+1. Create a Stripe Account: Sign up at Stripe and navigate to the dashboard to retrieve your API keys.
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+2. Configure Stripe Keys: In your project's settings, add the following lines:
+    ```bash
+    STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', 'your_stripe_public_key')
+    STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'your_stripe_secret_key')
+    ```
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+3. Use Environment Variables: Store your Stripe API keys in your .env file for local development and configure them in Heroku's Config   Vars for production.
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+## Django Allauth for Authentication
+1. Install Django Allauth: Add 'allauth', 'allauth.account', and 'allauth.socialaccount' to your INSTALLED_APPS in settings.py.
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+2. Configure URLs: Include Allauth URLs in your project's urls.py:
+    ```bash
+    urlpatterns = [
+    path('accounts/', include('allauth.urls')),
+    ...]```
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+3.  Customize Allauth Settings: Configure your authentication settings in settings.py, such as ACCOUNT_AUTHENTICATION_METHOD,   ACCOUNT_EMAIL_REQUIRED, etc.   
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+## PostgreSQL Database on Heroku
+1. Add PostgreSQL Add-on: From your Heroku dashboard, add the Heroku Postgres add-on to your application.
 
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
+2. Configure Database URL: Heroku sets the DATABASE_URL environment variable for your application. Use it in your settings.py:
+    ```bash
+    import dj_database_url
+DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 ```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
 
-**Anything more?**
+3. Migrate Your Database: Run heroku run python manage.py migrate to migrate your database schema to Heroku Postgres.
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+## Mailgun for Email Delivery
+1. Add Mailgun Add-on: In the Heroku dashboard, add the Mailgun add-on to your application.
 
----
+2. Retrieve API Keys and SMTP Details: From the Mailgun dashboard, get your domain, API key, and SMTP credentials.
 
-Happy coding!
+3. Configure Email Settings in Django: Update your settings.py with Mailgun SMTP settings:
+    ```bash
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.mailgun.org'
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = os.getenv('MAILGUN_SMTP_LOGIN')
+    EMAIL_HOST_PASSWORD = os.getenv('MAILGUN_SMTP_PASSWORD')
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = 'Your Email <mail@example.com>'
+    ```
+
+4. Set Environment Variables: Store your Mailgun credentials in the .env file and configure them in Heroku's Config Vars.
+
+## Additional Resources
+* Stripe Documentation: https://stripe.com/docs
+* Django Allauth Documentation: https://django-allauth.readthedocs.io/en/latest/installation.html
+* Heroku Postgres: https://devcenter.heroku.com/articles/heroku-postgresql
+* Mailgun with Django: https://documentation.mailgun.com/en/latest/quickstart-sending.html#send-with-smtp-or-api
+
+### Contributing
+    -We welcome contributions to Earn-Shop! If you have suggestions or improvements, please fork the repo and create a pull request.
+
+### License:
+    -Distributed under the MIT License. See LICENSE for more information. 
+
+### Acknowledgements:
+    - This project was inspired by and built upon the educational content from Code Institute's Boutique Ado project.      
+    - Thanks to all the open-source packages and tools that made this project possible.
