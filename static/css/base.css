@@ -658,14 +658,14 @@ input[name='q']::placeholder {
         padding-bottom: 0px !important;
     }
 
-    #clothing-link {
+    #clothing-link-padding {
         padding-bottom: 0px !important;
     }
 
-    #homeware-link{
+    #homeware-link-padding{
         padding-bottom: 0px !important;
     }
-    
+
     .dropdown-menu{
         flex: 1;
         text-align: center;
