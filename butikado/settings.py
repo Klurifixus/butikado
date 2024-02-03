@@ -120,7 +120,7 @@ EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN')  # Your Mailgun SMTP user
 EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD')  # Your Mailgun SMTP password
 EMAIL_USE_TLS = True  # Use TLS security
 MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY', 'default')
-MAILGUN_DOMAIN = os.environ.get('MAILGUN_DOMAIN', 'earn-shop.com')
+MAILGUN_DOMAIN = os.environ.get('MAILGUN_DOMAIN', 'MAILGUN_DOMAIN_SMTP')
 
 # Optional settings
 # Default 'FROM' email (this should be a verified domain in your Mailgun account)
