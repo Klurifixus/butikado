@@ -1,5 +1,5 @@
 <nav>
-    <ul class="list-inline">
+    <ul class="list-inline d-flex flex-row">
         {% if request.resolver_match.namespace == 'blog' %}
         <li class="list-inline-item dropdown d-block d-lg-none">
             <a class="text-white nav-link p-2" href="{% url 'home' %}">
