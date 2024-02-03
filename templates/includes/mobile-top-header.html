@@ -1,60 +1,65 @@
-{% if request.resolver_match.namespace == 'blog' %}
-    <li class="list-inline-item dropdown d-block d-lg-none">
-        <a class="text-white nav-link p-2" href="{% url 'home' %}">
-            <div class="text-center">
-                <i class="fas fa-tshirt"></i>
-                <p class="my-0">Shop</p>
-            </div>
-        </a>
-    </li>
-    {% else %}
+<nav>
+    <ul class="list-inline">
+        {% if request.resolver_match.namespace == 'blog' %}
         <li class="list-inline-item dropdown d-block d-lg-none">
-            <a class="text-white nav-link p-2" href="{% url 'blog:blog_home' %}">
+            <a class="text-white nav-link p-2" href="{% url 'home' %}">
                 <div class="text-center">
-                    <i class="fas fa-blog"></i>
-                    <p class="my-0">Blog</p>
+                    <i class="fas fa-tshirt"></i>
+                    <p class="my-0">Shop</p>
                 </div>
             </a>
         </li>
-    {% endif %}
-
-<li class="list-inline-item dropdown d-block d-lg-none">
-    <a class="text-white nav-link p-2" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <div class="text-center">
-            {% if request.user.is_authenticated %}
-                <i class="fas fa-crown logged-in-icon"></i>
-                <p class="my-0 logged-in-text">My Account</p>
-            {% else %}
-                <i class="fas fa-user-circle logged-out-icon"></i>
-                <p class="my-0">Login</p>
-            {% endif %}
-        </div>
-    </a>
-    <div class="dropdown-menu border-0" aria-labelledby="user-options">
-        {% if request.user.is_authenticated %}
-            {% if request.user.is_superuser %}
-                <a href="{% url 'add_product' %}" class="dropdown-item">Product Management</a>
-                <a href="{% url 'blog:add_blog_post' %}" class="dropdown-item">Blog Management</a>
-            {% endif %}
-            <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
-            <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
         {% else %}
-            <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-            <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+            <li class="list-inline-item dropdown d-block d-lg-none">
+                <a class="text-white nav-link p-2" href="{% url 'blog:blog_home' %}">
+                    <div class="text-center">
+                        <i class="fas fa-blog"></i>
+                        <p class="my-0">Blog</p>
+                    </div>
+                </a>
+            </li>
         {% endif %}
-    </div>
-</li>
-<li class="list-inline-item dropdown d-block d-lg-none">
-    <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-white{% endif %} nav-link p-2" href="{% url 'view_bag' %}">
-        <div class="text-center">
-            <i class="fas fa-shopping-bag"></i>
-            <p class="my-0">
-                {% if grand_total %}
-                    ${{ grand_total|floatformat:2 }}
+
+        <li class="list-inline-item dropdown d-block d-lg-none">
+            <a class="text-white nav-link p-2" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="text-center">
+                    {% if request.user.is_authenticated %}
+                        <i class="fas fa-crown logged-in-icon"></i>
+                        <p class="my-0 logged-in-text">My Account</p>
+                    {% else %}
+                        <i class="fas fa-user-circle logged-out-icon"></i>
+                        <p class="my-0">Login</p>
+                    {% endif %}
+                </div>
+            </a>
+            <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'add_product' %}" class="dropdown-item">Product Management</a>
+                        <a href="{% url 'blog:add_blog_post' %}" class="dropdown-item">Blog Management</a>
+                    {% endif %}
+                    <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
+                    <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                 {% else %}
-                    $0.00
+                    <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                    <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
                 {% endif %}
-            </p>
-        </div>
-    </a>
-</li>
+            </div>
+        </li>
+        <li class="list-inline-item dropdown d-block d-lg-none">
+            <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-white{% endif %} nav-link p-2" href="{% url 'view_bag' %}">
+                <div class="text-center">
+                    <i class="fas fa-shopping-bag"></i>
+                    <p class="my-0">
+                        {% if grand_total %}
+                            ${{ grand_total|floatformat:2 }}
+                        {% else %}
+                            $0.00
+                        {% endif %}
+                    </p>
+                </div>
+            </a>
+        </li>
+    </ul>
+</nav>
+

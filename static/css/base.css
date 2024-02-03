@@ -575,6 +575,10 @@ input[name='q']::placeholder {
     #delivery-banner{
         font-size: 1.2rem;
     }
+
+    .delivery-banner{
+        font-size: 1.2rem;
+    }
  
     .logo-font {
         font-size: 2rem;
@@ -638,20 +642,21 @@ input[name='q']::placeholder {
 
 @media (min-width: 992px) {
     .navbar-nav .dropdown-menu {
-        display: none; /* Hidden by default, shown on hover or click */
-        position: absolute; /* Positioned relative to its positioned parent */
-        top: 100%; /* Directly below the toggle element */
-        left: 0; /* Align to the left edge of the parent element */
-        z-index: 1000; /* Above other elements */
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
         background-color: #f8f9fa;
         border: 1px solid #ddd;
         border-radius: 5px;
         box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        margin-top: 0.5rem; /* Space between toggle and dropdown */
         padding: 0;
     }
 
-
+    #all-products-link {
+        padding-bottom: 0px !important;
+    }
     .dropdown-menu{
         flex: 1;
         text-align: center;
