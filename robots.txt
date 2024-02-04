@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /accounts/
+Disallow: /bag/
+Disallow: /checkout/
+Sitemap: https://earnsshopskater-b0a8c0e4297a.herokuapp.com/sitemap.xml
