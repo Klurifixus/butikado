@@ -48,12 +48,12 @@
                                 </div>
                                 {% endif %}
                             </a>
-                            <div class="text-center">
-                                <a href="{% url 'blog:blog_detail' post.slug %}" class="btn btn-primary mt-2">Read More</a>
-                            </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{ post.title }}</h5>
                                 <p class="card-text">{{ post.summary }}</p>
+                            </div>
+                            <div class="text-center">
+                                <a href="{% url 'blog:blog_detail' post.slug %}" class="btn btn-primary mt-2">Read More</a>
                             </div>
                     </div>
                 </div>
