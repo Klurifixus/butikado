@@ -17,15 +17,14 @@ def add_blog_post(request):
 
     if request.method == 'POST':
         form = BlogPostForm(request.POST, request.FILES)
+
         def extract_video_id(url):
+            if not url:
+                return None
             pattern = r'(?:https?://)?(?:www\.)?youtu(?:be\.com/watch\?v=|\.be/)([\w-]+)(?:&\S*)?$'
-    
-            # Use re.search to find the video ID in the URL
             match = re.search(pattern, url)
-    
             if match:
-                video_id = match.group(1)
-                return video_id
+                return match.group(1)
             else:
                 return None
 
@@ -34,11 +33,10 @@ def add_blog_post(request):
             blog_post.author = request.user
 
             # Extract the video ID from youtube_video_url
-            youtube_url = form.cleaned_data.get('youtube_video_url')
-            video_id = extract_video_id(youtube_url)
+            youtube_url = form.cleaned_data.get('youtube_video_url', '').strip()
+            video_id = extract_video_id(youtube_url) if youtube_url else None
 
             if video_id:
-                # Construct the embed URL
                 embed_url = f"https://www.youtube.com/embed/{video_id}"
                 blog_post.youtube_video_url = embed_url
 
