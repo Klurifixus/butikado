@@ -16,7 +16,8 @@ body {
 }
 
 .header-bg {
-    background-color: rgba(206, 168, 254, 0.95);
+    background: rgb(113,0,79);
+    background: linear-gradient(0deg, rgba(113,0,79,1) 0%, rgba(161,20,119,1) 21%, rgba(255,111,75,1) 100%);
 }
 
 .navbar-light .navbar-toggler {
