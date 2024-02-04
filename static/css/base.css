@@ -101,6 +101,17 @@ body {
     letter-spacing: 1px;
 } 
 
+.btn-signup {
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 1rem 2rem;
+    box-shadow: 0.03rem 0.1rem 0.2rem 0.2rem rgba(255, 255, 255, 0.2);
+    color: white;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
 .deli-font{
     font-family: 'Permanent Marker', cursive;
     text-shadow: 2px 2px 4px #bd2130;
