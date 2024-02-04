@@ -20,7 +20,7 @@ Welcome to Earn-Shop, the ultimate online destination for men's hip-hop clothing
 - **User Authentication**: Django Allauth for user management.
 - **Email Delivery**: Mailgun for sending confirmation emails.
 - **Media Storage**: Cloudinary for storing and managing media files efficiently.
-- **SEO Optimization**: Google Tag Manager for SEO and tracking analytics.
+- **SEO Optimization**: Google Tag Manager sitemap , facebook for SEO and tracking analytics.
 
 ## Design
 
