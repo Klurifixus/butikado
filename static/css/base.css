@@ -92,6 +92,15 @@ body {
     padding: 1rem;
 }
 
+.marker-text {
+    font-family: 'permanent marker';
+    letter-spacing: 1px;
+}
+
+.casual-text {
+    letter-spacing: 1px;
+} 
+
 .deli-font{
     font-family: 'Permanent Marker', cursive;
     text-shadow: 2px 2px 4px #bd2130;
