@@ -74,12 +74,15 @@ body {
     margin: 0 auto;
 }
 .rebel-text {
-    padding-top: 220px;
-    font-size: 2rem;
+    font-size: 1.2rem;
     font-family: 'Permanent Marker', cursive;
     text-shadow: 4px 4px 4px #252c3b;
     color: white;
     display: inline-block;
+}
+.socialmediaspace{
+    margin-top: 100px;
+    margin-bottom: 60px;
 }
 .deli-font{
     font-family: 'Permanent Marker', cursive;
@@ -158,6 +161,7 @@ body {
     font-family: 'Permanent Marker', cursive;
     animation: pulse 2.5s infinite;
     width: auto;
+    margin-top: 160px;
 
 }
 
@@ -545,9 +549,6 @@ input[name='q']::placeholder {
         padding-top: 250px;
     }
 
-    .rebel-text {
-        padding-top: 10px;
-    }
 }
 @media (max-width: 768px) {
     .allauth-form-inner-content {
@@ -604,9 +605,6 @@ input[name='q']::placeholder {
         padding-top: 30%;
     }
 
-    .rebel-text {
-        padding-top: 20px;
-    }
 
 }
 
@@ -637,9 +635,6 @@ input[name='q']::placeholder {
     position: relative;
 }
 
-.rebel-text {
-    padding-top: 140px;
-}
 
 @media (min-width: 992px) {
     .navbar-nav .dropdown-menu {
