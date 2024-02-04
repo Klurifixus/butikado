@@ -80,10 +80,18 @@ body {
     color: white;
     display: inline-block;
 }
+
 .socialmediaspace{
-    margin-top: 100px;
-    margin-bottom: 60px;
+    margin:3rem auto 40rem;
 }
+
+.socialmedia-div {
+    margin: 0 auto;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+}
+
 .deli-font{
     font-family: 'Permanent Marker', cursive;
     text-shadow: 2px 2px 4px #bd2130;
