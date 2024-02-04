@@ -15,8 +15,8 @@ body {
     font-family: 'Dancing Script', cursive;
 }
 
-.bg-custom-blue {
-    background-color: #17a2b8 !important;
+.header-bg {
+    background-color: rgba(206, 168, 254, 0.95);
 }
 
 .navbar-light .navbar-toggler {
