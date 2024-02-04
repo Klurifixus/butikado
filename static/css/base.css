@@ -150,13 +150,14 @@ body {
     color: #fff;
     border: none;
     border-radius: 5px !important;
-    padding: 12px 24px;
+    padding: 10px 20px;
     font-size: 1.2rem;
     text-shadow: 2px 2px 4px #bd2130;
     transition: background-color 0.3s, transform 0.3s;
     text-decoration: none;
     font-family: 'Permanent Marker', cursive;
     animation: pulse 2.5s infinite;
+    width: auto;
 
 }
 
