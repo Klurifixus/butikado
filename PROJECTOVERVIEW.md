@@ -186,6 +186,7 @@ Earn-Shop is an online storefront specializing in hip-hop and skate clothing, sk
 
 - **Code Contributions**: To contribute code to our project, we encourage developers to fork the repository, make their changes in a new branch, and submit a pull request for review. This process allows for discussion about the proposed changes and ensures that contributions are carefully integrated. We recommend following the project's coding standards and submitting well-documented code to facilitate the review process.
 - **Issue Tracking**: We manage bugs and feature requests using GitHub Issues. This platform allows us to track ongoing problems and new ideas efficiently, categorize them with labels, and assign tasks to team members. Contributors can report new issues, and the development team prioritizes them based on the project's needs. We also use milestones to group issues related to specific project phases or release targets, facilitating organization and planning.
+
 ## Update and Maintenance
 
 - **Versioning**: Our project employs semantic versioning for managing releases, ensuring clarity and predictability in the development cycle. Each version is structured as MAJOR.MINOR.PATCH, where increments indicate breaking changes, new features without breaking existing functionality, and bug fixes, respectively. The requirements.txt file is meticulously updated to reflect the dependencies for each version, guaranteeing compatibility and stability. This systematic approach aids in efficiently tracking changes and deploying new versions.
@@ -193,6 +194,12 @@ Earn-Shop is an online storefront specializing in hip-hop and skate clothing, sk
 ## Diagrams and Visual Aids
 
 - **Model Relationships**: [Link to ERD Markdown File](ERD.md)
+
+## Backup branches
+
+-** submitfinnish
+-** herokuendstages
+-** main
 
 ## Documentation Hosting
 
