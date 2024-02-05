@@ -41,6 +41,12 @@ Welcome to Earn-Shop, the ultimate online destination for men's hip-hop clothing
 
 [Link to Responsive Markdown File](RESPONSIVE.md)
 
+## Known Bugs
+- In mobile view when visiting product the carousel first item and the first item below is the same before auto update in carousell.
+-When using mobilephone (not in devtools) It can be hard to write in the adress and postal information because its disapear behind nav frequently. (tested on iphone 14pro)
+-There are a little to wide gap between nav and dropdown. 
+
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
