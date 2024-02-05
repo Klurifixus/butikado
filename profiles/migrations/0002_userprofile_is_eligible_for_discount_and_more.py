@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('profiles', '0001_initial'),
+        ("profiles", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='userprofile',
-            name='is_eligible_for_discount',
+            model_name="userprofile",
+            name="is_eligible_for_discount",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='loyalty_purchase_count',
+            model_name="userprofile",
+            name="loyalty_purchase_count",
             field=models.IntegerField(default=0),
         ),
     ]

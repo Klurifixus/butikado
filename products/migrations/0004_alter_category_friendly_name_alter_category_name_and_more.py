@@ -6,28 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('products', '0003_product_has_sizes'),
+        ("products", "0003_product_has_sizes"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='category',
-            name='friendly_name',
+            model_name="category",
+            name="friendly_name",
             field=models.CharField(blank=True, max_length=254, null=True),
         ),
         migrations.AlterField(
-            model_name='category',
-            name='name',
+            model_name="category",
+            name="name",
             field=models.CharField(max_length=254),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='name',
+            model_name="product",
+            name="name",
             field=models.CharField(max_length=254),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='sku',
+            model_name="product",
+            name="sku",
             field=models.CharField(blank=True, max_length=254, null=True),
         ),
     ]

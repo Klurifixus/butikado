@@ -1,5 +1,7 @@
 from django.core.mail.backends.base import BaseEmailBackend
+
 from .mail_utils import send_mailgun_email
+
 
 class MailgunEmailBackend(BaseEmailBackend):
     def send_messages(self, email_messages):
@@ -15,9 +17,9 @@ class MailgunEmailBackend(BaseEmailBackend):
                 subject=message.subject,
                 message=message.body,
                 to_email=message.to[0],
-                from_email=message.from_email
+                from_email=message.from_email,
             )
             if response.status_code == 200:
                 num_sent += 1
-        
+
         return num_sent

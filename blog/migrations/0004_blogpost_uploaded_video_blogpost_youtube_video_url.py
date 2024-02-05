@@ -6,18 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0003_remove_blogpost_category_blogpost_author_and_more'),
+        ("blog", "0003_remove_blogpost_category_blogpost_author_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='blogpost',
-            name='uploaded_video',
-            field=models.FileField(blank=True, null=True, upload_to='blog_videos/'),
+            model_name="blogpost",
+            name="uploaded_video",
+            field=models.FileField(blank=True, null=True, upload_to="blog_videos/"),
         ),
         migrations.AddField(
-            model_name='blogpost',
-            name='youtube_video_url',
-            field=models.URLField(blank=True, help_text='URL of the YouTube video', null=True),
+            model_name="blogpost",
+            name="youtube_video_url",
+            field=models.URLField(
+                blank=True, help_text="URL of the YouTube video", null=True
+            ),
         ),
     ]

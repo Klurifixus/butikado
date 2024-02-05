@@ -7,18 +7,22 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0005_alter_blogpost_image_alter_blogpost_subcategory'),
+        ("blog", "0005_alter_blogpost_image_alter_blogpost_subcategory"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='blogpost',
-            name='image',
-            field=cloudinary.models.CloudinaryField(blank=True, max_length=255, null=True, verbose_name='image'),
+            model_name="blogpost",
+            name="image",
+            field=cloudinary.models.CloudinaryField(
+                blank=True, max_length=255, null=True, verbose_name="image"
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='uploaded_video',
-            field=cloudinary.models.CloudinaryField(blank=True, max_length=255, null=True, verbose_name='video'),
+            model_name="blogpost",
+            name="uploaded_video",
+            field=cloudinary.models.CloudinaryField(
+                blank=True, max_length=255, null=True, verbose_name="video"
+            ),
         ),
     ]
