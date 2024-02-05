@@ -20,25 +20,29 @@ Welcome to Earn-Shop, the ultimate online destination for men's hip-hop clothing
 - **User Authentication**: Django Allauth for user management.
 - **Email Delivery**: Mailgun for sending confirmation emails.
 - **Media Storage**: Cloudinary for storing and managing media files efficiently.
-- **SEO Optimization**: Google Tag Manager sitemap , facebook for SEO and tracking analytics.
+- **SEO Optimization**: Google Tag Manager, Sitemap , Facebook for SEO and tracking analytics.
 
 ## Design
 
-### Color Theme
-
-Include a section on the primary, secondary, and accent colors used in the site, with examples of their use and color codes.
-
 ### Wireframes
 
-Add a section that includes wireframes for different pages of the application, for both mobile and desktop versions.
+[Link to Wireframes Markdown File](WIREFRAMES.md)
 
 ### Flowchart
 
 Provide a flowchart that outlines the user flow through the application, from the landing page to completing a purchase.
 
+### Tests
+
+[Link to Tests Markdown File](TESTING.md)
+
+### Project overview
+
+[Link to The project overview Markdown File](PROJECTOVERVIEW.md)
+
 ## Responsive Design
 
-Include a section that demonstrates the responsive nature of the website. Show how the site adapts to different screen sizes, possibly with screenshots from the "Am I Responsive" website.
+[Link to Responsive Markdown File](RESPONSIVE.md)
 
 ## Getting Started
 
