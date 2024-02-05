@@ -35,7 +35,7 @@ Welcome to Earn-Shop, the ultimate online destination for men's hip-hop clothing
 ### Project overview
 
 [Link to The project overview Markdown File](PROJECTOVERVIEW.md)
-[Link to ERD Markdown File](ERD.md)
+
 
 ## Responsive Design
 
