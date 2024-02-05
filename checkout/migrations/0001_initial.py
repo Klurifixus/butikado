@@ -41,15 +41,18 @@ class Migration(migrations.Migration):
                 ("date", models.DateTimeField(auto_now_add=True)),
                 (
                     "delivery_cost",
-                    models.DecimalField(decimal_places=2, default=0, max_digits=6),
+                    models.DecimalField(
+                        decimal_places=2, default=0, max_digits=6),
                 ),
                 (
                     "order_total",
-                    models.DecimalField(decimal_places=2, default=0, max_digits=10),
+                    models.DecimalField(
+                        decimal_places=2, default=0, max_digits=10),
                 ),
                 (
                     "grand_total",
-                    models.DecimalField(decimal_places=2, default=0, max_digits=10),
+                    models.DecimalField(
+                        decimal_places=2, default=0, max_digits=10),
                 ),
             ],
         ),
@@ -65,11 +68,13 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("product_size", models.CharField(blank=True, max_length=2, null=True)),
+                ("product_size", models.CharField(
+                    blank=True, max_length=2, null=True)),
                 ("quantity", models.IntegerField(default=0)),
                 (
                     "lineitem_total",
-                    models.DecimalField(decimal_places=2, editable=False, max_digits=6),
+                    models.DecimalField(
+                        decimal_places=2, editable=False, max_digits=6),
                 ),
                 (
                     "order",

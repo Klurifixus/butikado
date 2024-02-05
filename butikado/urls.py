@@ -30,6 +30,7 @@ urlpatterns = [
     path("checkout/", include("checkout.urls")),
     path("profile/", include("profiles.urls")),
     path("terms/", home_views.terms_of_usage, name="terms_of_usage"),
-    path("privacy/", home_views.data_handling_policy, name="data_handling_policy"),
+    path("privacy/", home_views.data_handling_policy,
+         name="data_handling_policy"),
     path("blog/", include("blog.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

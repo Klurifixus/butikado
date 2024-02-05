@@ -122,7 +122,8 @@ SITE_ID = 1
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.mailgun.org"  # Mailgun SMTP server
 EMAIL_PORT = 587  # Standard port for SMTP
-EMAIL_HOST_USER = os.environ.get("MAILGUN_SMTP_LOGIN")  # Your Mailgun SMTP user
+EMAIL_HOST_USER = os.environ.get(
+    "MAILGUN_SMTP_LOGIN")  # Your Mailgun SMTP user
 EMAIL_HOST_PASSWORD = os.environ.get(
     "MAILGUN_SMTP_PASSWORD"
 )  # Your Mailgun SMTP password
@@ -132,7 +133,8 @@ MAILGUN_DOMAIN = os.environ.get("MAILGUN_DOMAIN", "MAILGUN_DOMAIN_SMTP")
 
 # Optional settings
 # Default 'FROM' email (this should be a verified domain in your Mailgun account)
-DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "your-email@example.com")
+DEFAULT_FROM_EMAIL = os.environ.get(
+    "DEFAULT_FROM_EMAIL", "your-email@example.com")
 
 # Optional: Server email for error notifications, use a verified sender on Mailgun
 SERVER_EMAIL = os.environ.get("SERVER_EMAIL", "server-email@example.com")

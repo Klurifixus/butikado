@@ -14,7 +14,7 @@ from .models import BlogPost, PostInteraction, SubCategory
 @login_required
 def add_blog_post(request):
     if not request.user.is_superuser:
-        return HttpResponseForbidden("You are not authorized to add a blog post.")
+        return HttpResponseForbidden("You are not authorized")
 
     if request.method == "POST":
         form = BlogPostForm(request.POST, request.FILES)
@@ -22,7 +22,13 @@ def add_blog_post(request):
         def extract_video_id(url):
             if not url:  # Check if the URL is None or empty
                 return None
-            pattern = r"(?:https?://)?(?:www\.)?youtu(?:be\.com/watch\?v=|\.be/)([\w-]+)(?:&\S*)?$"
+            pattern = (
+                r"(?:https?://)?"
+                r"(?:www\.)?"
+                r"youtu(?:be\.com/watch\?v=|\.be/)"
+                r"([\w-]+)"
+                r"(?:&\S*)?$"
+            )
             match = re.search(pattern, url)
             if match:
                 return match.group(1)

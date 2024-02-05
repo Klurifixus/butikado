@@ -42,10 +42,12 @@ def all_products(request):
         if "q" in request.GET:
             query = request.GET["q"]
             if not query:
-                messages.error(request, "You didn't enter any search criteria!")
+                messages.error(
+                    request, "You didn't enter any search criteria!")
                 return redirect(reverse("products"))
 
-            queries = Q(name__icontains=query) | Q(description__icontains=query)
+            queries = Q(name__icontains=query) | Q(
+                description__icontains=query)
             products = products.filter(queries)
 
     current_sorting = f"{sort}_{direction}"
@@ -62,7 +64,8 @@ def all_products(request):
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
-    sizes = product.sizes.filter(quantity__gt=0)  # Get sizes with available stock
+    # Get sizes with available stock
+    sizes = product.sizes.filter(quantity__gt=0)
     context = {
         "product": product,
         "sizes": sizes,

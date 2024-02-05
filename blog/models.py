@@ -35,13 +35,14 @@ def validate_youtube_url(value):
 
 def validate_square_image(image_field):
     if image_field:
-        # Check if the image is stored on Cloudinary (has a public_id attribute)
+        # Check if the image is stored on Cloudinary
         if hasattr(image_field, "public_id"):
             # Fetch the image from Cloudinary as a BytesIO object
             image_url = cloudinary.CloudinaryImage(image_field.public_id).build_url(
                 secure=True
             )
-            response = requests.get(image_url)
+            # Add timeout parameter
+            response = requests.get(image_url, timeout=10)
             image = Image.open(BytesIO(response.content))
         else:
             # If not on Cloudinary, open the image directly

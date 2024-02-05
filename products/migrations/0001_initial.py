@@ -53,7 +53,8 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("image", models.ImageField(blank=True, null=True, upload_to="")),
-                ("image_url", models.URLField(blank=True, max_length=1024, null=True)),
+                ("image_url", models.URLField(
+                    blank=True, max_length=1024, null=True)),
                 (
                     "category",
                     models.ForeignKey(
