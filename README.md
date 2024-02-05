@@ -28,10 +28,6 @@ Welcome to Earn-Shop, the ultimate online destination for men's hip-hop clothing
 
 [Link to Wireframes Markdown File](WIREFRAMES.md)
 
-### Flowchart
-
-Provide a flowchart that outlines the user flow through the application, from the landing page to completing a purchase.
-
 ### Tests
 
 [Link to Tests Markdown File](TESTING.md)
@@ -39,6 +35,7 @@ Provide a flowchart that outlines the user flow through the application, from th
 ### Project overview
 
 [Link to The project overview Markdown File](PROJECTOVERVIEW.md)
+
 
 ## Responsive Design
 
