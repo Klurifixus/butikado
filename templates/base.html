@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Discover unique streetwear at Earn-Shop. Exclusive hip-hop, reggae, and skating apparel including t-shirts, hoodies, jackets, and our distinctive line of watches. Shop now for authentic style.">
         <meta name="keywords" content="Earn-Shop streetwear, 90s hip-hop clothing online, skate fashion apparel, urban wear for men, unique watches for skaters, hip-hop t-shirts online, reggae inspired clothing, exclusive skateboarding gear, retro sneakers collection, skate style hoodies shop, men's unique streetwear, authentic hip-hop apparel, fathers day gifts for skaters, hip-hop inspired accessories, online urban fashion store, skateboards and skate shoes, trendy men's t-shirts, gift ideas for hip-hop fans, exclusive reggae t-shirts, 90s fashion revival wear">
+        <meta name="theme-color" content="#fb9040">
         <meta property="og:title" content="Earn-Shop | Unique Streetwear Fashion">
         <meta property="og:description" content="Explore Earn-Shop's unique brand of streetwear. From hip-hop to reggae and skating, find the apparel that makes you stand out.">
         <meta property="og:image" content="{% static 'media/capearnsnapback.png' %}">
@@ -20,9 +21,8 @@
     {% block extra_meta %}
     {% endblock %}
 
-    {% load static %}
     <link rel="manifest" href="{% static 'manifest.json' %}">
-    
+
     {% block corecss %}
         <link rel="icon" href="{{ MEDIA_URL }}favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
