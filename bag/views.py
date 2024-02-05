@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.http import JsonResponse
-from django.shortcuts import HttpResponse, get_object_or_404, redirect, render, reverse
+from django.shortcuts import (HttpResponse, get_object_or_404, redirect,
+                              render, reverse)
 
 from products.models import Product
 
@@ -36,12 +37,14 @@ def add_to_bag(request, item_id):
             else:
                 bag[item_id]["items_by_size"][size] = quantity
                 messages.success(
-                    request, f"Added size {size.upper()} {product.name} to your bag"
+                    request, f"Added size {
+                        size.upper()} {product.name} to your bag"
                 )
         else:
             bag[item_id] = {"items_by_size": {size: quantity}}
             messages.success(
-                request, f"Added size {size.upper()} {product.name} to your bag"
+                request, f"Added size {
+                    size.upper()} {product.name} to your bag"
             )
     else:
         if item_id in list(bag.keys()):
@@ -84,7 +87,8 @@ def adjust_bag(request, item_id):
     else:
         if quantity > 0:
             bag[item_id] = quantity
-            success_message = f"Updated {product.name} quantity to {bag[item_id]}"
+            success_message = f"Updated {
+                product.name} quantity to {bag[item_id]}"
         else:
             bag.pop(item_id)
             success_message = f"Removed {product.name} from your bag"
@@ -122,7 +126,8 @@ def remove_from_bag(request, item_id):
             if not bag[item_id]["items_by_size"]:
                 bag.pop(item_id)
             messages.success(
-                request, f"Removed size {size.upper()} {product.name} from your bag"
+                request, f"Removed size {
+                    size.upper()} {product.name} from your bag"
             )
         else:
             bag.pop(item_id)

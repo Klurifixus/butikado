@@ -27,7 +27,8 @@ class Migration(migrations.Migration):
                 (
                     "parent_category",
                     models.CharField(
-                        choices=[("SK", "Skate"), ("MU", "Music"), ("HI", "History")],
+                        choices=[("SK", "Skate"), ("MU", "Music"),
+                                 ("HI", "History")],
                         max_length=2,
                     ),
                 ),

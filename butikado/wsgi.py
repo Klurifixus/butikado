@@ -20,4 +20,5 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "butikado.settings")
 
 application = get_wsgi_application()
 application = WhiteNoise(application, root=settings.MEDIA_ROOT)
-application.add_files(os.path.join(settings.BASE_DIR, "media"), prefix="media/")
+application.add_files(os.path.join(
+    settings.BASE_DIR, "media"), prefix="media/")

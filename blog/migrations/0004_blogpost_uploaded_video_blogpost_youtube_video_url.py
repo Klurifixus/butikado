@@ -13,7 +13,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="blogpost",
             name="uploaded_video",
-            field=models.FileField(blank=True, null=True, upload_to="blog_videos/"),
+            field=models.FileField(blank=True, null=True,
+                                   upload_to="blog_videos/"),
         ),
         migrations.AddField(
             model_name="blogpost",

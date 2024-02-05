@@ -23,7 +23,8 @@ class BlogPostForm(forms.ModelForm):
 
         # Subcategory field: dropdown of available subcategories
         self.fields["subcategory"].queryset = SubCategory.objects.all()
-        self.fields["subcategory"].widget.attrs.update({"class": "form-control"})
+        self.fields["subcategory"].widget.attrs.update(
+            {"class": "form-control"})
 
         # Image field: using a FileInput widget
         self.fields["image"].widget = forms.FileInput(

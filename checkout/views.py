@@ -4,7 +4,8 @@ import logging
 import stripe
 from django.conf import settings
 from django.contrib import messages
-from django.shortcuts import HttpResponse, get_object_or_404, redirect, render, reverse
+from django.shortcuts import (HttpResponse, get_object_or_404, redirect,
+                              render, reverse)
 from django.views.decorators.http import require_POST
 
 from bag.contexts import bag_contents
