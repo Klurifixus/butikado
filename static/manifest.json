@@ -3,12 +3,12 @@
     "name": "Earn-Shop Unique Streetwear Fashion",
     "icons": [
       {
-        "src": "/media/icons/icon-192x192.png",
+        "src": "/media/android-chrome-192x192.png",
         "type": "image/png",
         "sizes": "192x192"
       },
       {
-        "src": "/media/icons/icon-512x512.png",
+        "src": "/media/android-chrome-512x512.png",
         "type": "image/png",
         "sizes": "512x512"
       }
