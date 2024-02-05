@@ -41,10 +41,19 @@ Welcome to Earn-Shop, the ultimate online destination for men's hip-hop clothing
 
 [Link to Responsive Markdown File](RESPONSIVE.md)
 
-## Known Bugs
-- In mobile view when visiting product the carousel first item and the first item below is the same before auto update in carousell.
--When using mobilephone (not in devtools) It can be hard to write in the adress and postal information because its disapear behind nav frequently. (tested on iphone 14pro)
--There are a little to wide gap between nav and dropdown.
+## Known, Issues and future Feature
+-Styling or bugs
+[Issue #35 on GitHub](https://github.com/Klurifixus/butikado/issues/35)
+[Issue #36 on GitHub](https://github.com/Klurifixus/butikado/issues/36)
+[Issue #37 on GitHub](https://github.com/Klurifixus/butikado/issues/37)
+
+-Future Features
+[Issue #14 on GitHub](https://github.com/Klurifixus/butikado/issues/14)
+[Issue Draft on GitHub](https://github.com/users/Klurifixus/projects/16?pane=issue&itemId=51650410)
+[Issue #28 on GitHub](https://github.com/Klurifixus/butikado/issues/28)
+[Issue #22 on GitHub](https://github.com/Klurifixus/butikado/issues/22)
+[Issue #38 on GitHub](https://github.com/Klurifixus/butikado/issues/38)
+
 
 
 ## Getting Started
