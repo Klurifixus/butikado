@@ -16,3 +16,4 @@ __pycache__
 /output/
 .sql
 info.txt
+db.sqlite3

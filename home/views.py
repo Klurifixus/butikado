@@ -1,6 +1,5 @@
 from django.shortcuts import render
 
-
 def index(request):
     return render(request, "home/index.html")
 
@@ -11,3 +10,6 @@ def terms_of_usage(request):
 
 def data_handling_policy(request):
     return render(request, "home/data_handling_policy.html")
+
+def custom_404(request, exception):
+    return render(request, '404.html', {}, status=404)

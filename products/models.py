@@ -20,7 +20,7 @@ class Size(models.Model):
     product = models.ForeignKey(
         "Product", on_delete=models.CASCADE, related_name="sizes"
     )
-    size = models.CharField(max_length=10)  # e.g., 'XS', 'W27L30'
+    size = models.CharField(max_length=10)
     quantity = models.IntegerField(default=0)
 
     def __str__(self):
