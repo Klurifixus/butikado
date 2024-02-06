@@ -24,6 +24,9 @@ Welcome to Earn-Shop, the ultimate online destination for men's hip-hop clothing
 
 ## Design
 
+![Link to Color Theme](media/themecolor.png)
+Our design philosophy is deeply rooted in the vibrant essence of '90s hip-hop culture and the rebellious spirit of skateboarding. The color theme, visualized in the linked image, draws from these dynamic eras, combining warm oranges and deep browns to evoke nostalgia and energy. We've meticulously chosen fonts like "Permanent Marker" to capture the bold and expressive graffiti art characteristic of hip-hop's golden age. Every element, from the background to interactive components, is crafted to immerse users in a shopping experience that not only resonates with the era's aesthetic but also meets modern expectations of functionality and responsiveness.
+
 ### Wireframes
 
 [Link to Wireframes Markdown File](WIREFRAMES.md)
@@ -40,6 +43,26 @@ Welcome to Earn-Shop, the ultimate online destination for men's hip-hop clothing
 ## Responsive Design
 
 [Link to Responsive Markdown File](RESPONSIVE.md)
+
+## Known, Issues and future Feature
+
+### Styling or bugs:
+[Issue #35 on GitHub](https://github.com/Klurifixus/butikado/issues/35)
+[Issue #36 on GitHub](https://github.com/Klurifixus/butikado/issues/36)
+[Issue #37 on GitHub](https://github.com/Klurifixus/butikado/issues/37)
+
+### Future Features:
+[Issue #14 on GitHub](https://github.com/Klurifixus/butikado/issues/14)
+[Issue Draft on GitHub](https://github.com/users/Klurifixus/projects/16?pane=issue&itemId=51650410)
+[Issue #28 on GitHub](https://github.com/Klurifixus/butikado/issues/28)
+[Issue #22 on GitHub](https://github.com/Klurifixus/butikado/issues/22)
+[Issue #38 on GitHub](https://github.com/Klurifixus/butikado/issues/38)
+
+### Infomation about the future:
+-Future enhancements for this page include updating profile pictures and enabling login through Google, Facebook, and Instagram for user convenience. There will also be features for users to save their favorite products, view them easily, and comment on blog posts, drawing inspiration from the [GitHub project for Submission project 4](https://github.com/Klurifixus/TheCornerForum/tree/herokugoal?tab=readme-ov-file#). This project's insights will significantly influence the upcoming functionalities, enhancing user engagement and interaction on the platform.
+
+### ProjectBoard on Github
+[Earn-shop project Board](https://github.com/users/Klurifixus/projects/16)
 
 ## Getting Started
 
