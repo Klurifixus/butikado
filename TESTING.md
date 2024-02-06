@@ -1,4 +1,4 @@
-## Manual Testing Insights
+# Manual Testing Insights
 
 - Manual testing involves directly interacting with the website to evaluate various functionalities like navigation, form submissions, responsiveness across devices, and user flow processes. This hands-on approach helps identify usability issues, visual inconsistencies, and potential errors in real-world scenarios, complementing automated tests to ensure a seamless user experience.
 
